@@ -1,25 +1,20 @@
----
-title: Online Hosted Instructions
+﻿---
+title: オンライン ホステッド インストラクション
 permalink: index.html
 layout: home
 ---
 
-# Content Directory
+# コンテンツ ディレクトリ
 
-Hyperlinks to each of the lab exercises and demos are listed below.
+ラボを完了するために必要なファイルは、[ここで](https://github.com/MicrosoftLearning/AZ-303-Microsoft-Azure-Architect-Technologies/archive/master.zip)ダウンロードすることができます
 
-## Labs
+各ラボの演習とデモへのハイパーリンクを以下に一覧表示します。
+
+## ラボ
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
-| Module | Lab |
+| モジュール | ラボ |
 | --- | --- | 
 {% for activity in labs  %}| {{ activity.lab.module }} | [{{ activity.lab.title }}{% if activity.lab.type %} - {{ activity.lab.type }}{% endif %}]({{ site.github.url }}{{ activity.url }}) |
 {% endfor %}
 
-## Demos
-
-{% assign demos = site.pages | where_exp:"page", "page.url contains '/Instructions/Demos'" %}
-| Module | Demo |
-| --- | --- | 
-{% for activity in demos  %}| {{ activity.demo.module }} | [{{ activity.demo.title }}]({{ site.github.url }}{{ activity.url }}) |
-{% endfor %}
