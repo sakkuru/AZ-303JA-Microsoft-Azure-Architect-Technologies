@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '5: Azure Storage File および Blob Services の実装と構成'
     module: 'モジュール 5: ストレージ アカウントの実装'
@@ -258,7 +258,7 @@ Windows Server 管理者の資格情報
    Set-Content './az30302ablob.html' '<h3>Hello from az30302ablob via SAS</h3>'
    ```
 
-1. Cloud Shell ペインから次のコマンドを実行し、新しく作成したファイルを Blob として、この演習の前半で作成した Azure Storage アカウントの container 1 にアップロードします（ このタスクの前半でクリップボードにコピーした Shared Access Signature の "<sas_token> " というプレースホルダ を差し替えます)。
+1. Cloud Shell ペインから次のコマンドを実行し、新しく作成したファイルを Blob として、この演習の前半で作成した Azure Storage アカウントの container 1 にアップロードします（ このタスクの前半でクリップボードにコピーした Shared Access Signature の `<sas_token>` というプレースホルダ を差し替えます)。
 
    ```powershell
    $storageAccountName = (Get-AzStorageAccount -ResourceGroupName 'az30302a-labRG')[0].StorageAccountName

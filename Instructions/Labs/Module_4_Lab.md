@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '4: 高可用性 Azure IaaS コンピューティング アーキテクチャの実装'
     module: 'モジュール 4: 負荷分散とネットワーク セキュリティの実装'
@@ -204,7 +204,7 @@ Windows Server 管理者の認証資格情報
 
 1. 「**az303001a-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
 
-1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします ("<lb_IP_address>" プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
+1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
    ```sh
    for i in {1..4}; do curl <lb_IP_address>; done
@@ -214,7 +214,7 @@ Windows Server 管理者の認証資格情報
 
 1. Azure portal で、「**az30301a-lb**」 ブレードに戻り、「**受信 NAT 規則**] エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
 
-1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします ('<lb_IP_address>' プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
+1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
    ```sh
    curl -v telnet://<lb_IP_address>:33890
@@ -222,7 +222,7 @@ Windows Server 管理者の認証資格情報
 
     > **注**: 返されたメッセージが接続成功を示していることを確認します。 
 
-1. **Ctrl+C** キーを押して Bash シェル プロンプトに戻り、次を実行して、Azure Load Balancer のバックエンド プールにある 2 番目の Azure VM への NAT 経由のリモート デスクトップの接続をテストします ("<lb_IP_address>" プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます) 。
+1. **Ctrl+C** キーを押して Bash シェル プロンプトに戻り、次を実行して、Azure Load Balancer のバックエンド プールにある 2 番目の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます) 。
 
    ```sh
    curl -v telnet://<lb_IP_address>:33891
@@ -376,7 +376,7 @@ Windows Server 管理者の認証資格情報
 
 1. 「**az303001b-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
 
-1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします ("<lb_IP_address>" プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
+1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
    ```sh
    for i in {1..4}; do curl <lb_IP_address>; done
@@ -386,7 +386,7 @@ Windows Server 管理者の認証資格情報
 
 1. Azure portal で、「**az30301b-lb**」 ブレードに戻り、「**受信 NAT 規則**」 エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
 
-1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします ('<lb_IP_address>' プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
+1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
    ```sh
    curl -v telnet://<lb_IP_address>:33890
@@ -394,7 +394,7 @@ Windows Server 管理者の認証資格情報
 
     > **注**: 返されたメッセージが接続成功を示していることを確認します。 
 
-1. **Ctrl+C** キーを押して Bash シェル プロンプトに戻り、次を実行して、Azure Load Balancer のバックエンド プールにある 2 番目の Azure VM への NAT 経由のリモート デスクトップの接続をテストします ("<lb_IP_address>" プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます) 。
+1. **Ctrl+C** キーを押して Bash シェル プロンプトに戻り、次を実行して、Azure Load Balancer のバックエンド プールにある 2 番目の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます) 。
 
    ```sh
    curl -v telnet://<lb_IP_address>:33891
@@ -622,7 +622,7 @@ Windows Server 管理者の認証資格情報
 
 1. Azure portal の Cloud Shell ペインで、新しい **Bash** セッションを起動します。 
 
-1. Cloud Shell ペインから次を実行して、Azure Application Gateway のバックエンド プール内の Azure VM スケール セット インスタンスの自動スケーリングをトリガーします ("<lb_IP_address>" プレースホルダーを、先ほど特定したゲートウェイのフロントエンドの IP アドレスに置き換えます):
+1. Cloud Shell ペインから次を実行して、Azure Application Gateway のバックエンド プール内の Azure VM スケール セット インスタンスの自動スケーリングをトリガーします (`<lb_IP_address>` プレースホルダーを、先ほど特定したゲートウェイのフロントエンドの IP アドレスに置き換えます):
 
    ```sh
    for (( ; ; )); do curl -s <lb_IP_address>?[1-10]; done
