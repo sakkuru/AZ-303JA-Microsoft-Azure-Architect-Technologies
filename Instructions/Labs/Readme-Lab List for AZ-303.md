@@ -2,7 +2,7 @@
 
 # AZ-303: GitHub のラボ ファイル名 
 
-**ソース リポジトリ:** [https://github.com/MicrosoftLearning/AZ-303-Microsoft-Azure-Architect-Technologies](https://github.com/MicrosoftLearning/AZ-303-Microsoft-Azure-Architect-Technologies) 
+**ソース リポジトリ:** [https://github.com/MicrosoftLearning/AZ-303JA-Microsoft-Azure-Architect-Technologies](https://github.com/MicrosoftLearning/AZ-303JA-Microsoft-Azure-Architect-Technologies) 
 
 **モジュール 4 のラボ** 
 

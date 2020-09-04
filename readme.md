@@ -1,7 +1,7 @@
 ﻿# AZ-303: Microsoft Azure アーキテクト テクノロジ
 
 - **[チュートリアルへのリンク (HTML 形式)](https://microsoftlearning.github.io/AZ-303JA-Microsoft-Azure-Architect-Technologies/)**
-- **[最新の受講生ハンドブックと AllFiles コンテンツをダウンロードする](https://github.com/MicrosoftLearning/AZ-303-Microsoft-Azure-Architect-Technologies/archive/master.zip)**
+- **[最新の受講生ハンドブックと AllFiles コンテンツをダウンロードする](https://github.com/MicrosoftLearning/AZ-303JA-Microsoft-Azure-Architect-Technologies/archive/master.zip)**
 - **あなたは MCT ですか。** - [MCT 向け GitHub ユーザー ガイド](https://microsoftlearning.github.io/MCT-User-Guide-JA/)をご覧ください
 - **ラボの手順を手動でビルドする必要がありますか。** - 手順は、[MicrosoftLearning/Docker-Build](https://github.com/MicrosoftLearning/Docker-Build) リポジトリで利用可能です
 
