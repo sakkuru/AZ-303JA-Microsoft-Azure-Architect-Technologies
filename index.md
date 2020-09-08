@@ -1,4 +1,4 @@
----
+﻿---
 title: オンライン ホステッド インストラクション
 permalink: index.html
 layout: home
@@ -6,7 +6,7 @@ layout: home
 
 # コンテンツ ディレクトリ
 
-ラボを完了するために必要なファイルは、[ここで](https://github.com/MicrosoftLearning/AZ-303-Microsoft-Azure-Architect-Technologies/archive/master.zip)ダウンロードすることができます
+ラボを完了するために必要なファイルは、[ここで](https://github.com/MicrosoftLearning/AZ-303JA-Microsoft-Azure-Architect-Technologies/archive/master.zip)ダウンロードすることができます
 
 各ラボの演習とデモへのハイパーリンクを以下に一覧表示します。
 
