@@ -145,19 +145,19 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 
 1. Azure ポータルに切り替えて、このタスクの前半で作成した Azure Function アプリのブレードに移動します。
 
-1. Azure 関数アプリ ブレードで、「**Functions**」 をクリックし、「**+ 追加**」 をクリックします。 
+1. Azure 関数アプリ ブレードで、「**関数**」 をクリックし、「**+ 追加**」 をクリックします。 
 
-1. **新しい関数**ブレードで、「**Azure Blob ストレージ トリガー**」 テンプレートを選択します。
+1. **新しい関数**ブレードで、「**Azure Blob Storage Trigger**」 テンプレートを選択します。
 
-1. **新しい関数**ブレードで、次を指定し、「**関数の作成**」 を選択して Azure 関数内に新し関数 を作成します。
+1. **新しい関数**ブレードで、次の値を指定し、「**関数の作成**」 を選択して Azure 関数内に新し関数 を作成します。
 
     | 設定 | 値 | 
     | --- | --- |
-    | 名前 | **Blob Trigger** |
+    | 名前 | **BlobTrigger** |
     | パス | **workitems/{name}** |
     | ストレージ アカウントの接続:  | **STORAGE_CONNECTION_STRING** |
 
-1. Azure 関数アプリの **BlobTrigger**関数 ブレードで、「**Code + Test**」 を選択し、run.csx ファイルのコンテンツを確認します。 
+1. Azure 関数アプリの **BlobTrigger**関数 ブレードで、「**コードとテスト**」 を選択し、run.csx ファイルのコンテンツを確認します。 
 
    ```csharp
    public static void Run(Stream myBlob, string name, ILogger log)
@@ -195,17 +195,13 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    az storage blob upload --file "${WORKITEM}" --container-name "${CONTAINER_NAME}" --name "${WORKITEM}" --auth-mode key --account-key "${STORAGE_ACCESS_KEY}" --account-name "${STORAGE_ACCOUNT_NAME}"
    ```
 
-1. Azure ポータルで、前のタスクで作成した Azure Function アプリが表示するブレードに戻ります。
+1. Azure 関数アプリ ブレードで、**Developer** セクションの 「**モニター**」 エントリーをクリックします。 
 
-1. 「Azure 関数アプリ」 ブレードで、「クラシック エクスペリエンスに切り替える」 を選択します。 | クラシック エクスペリエンスを続ける
-
-1. Azure 関数アプリ ブレードで、**Developer** セクションの 「**Monitor**」 エントリーをクリックします。 
-
-1. Blob のアップロードを表す単一のイベントエントリに注意してください。エントリーを選択して、**起動の詳細**ブレードを表示します。
+1. Blob のアップロードを表す単一のイベントエントリに注意してください。エントリーを選択して、**起動の詳細(Invocation Details)**ブレードを表示します。
 
     > **注**: このエクササイズの Azure Function アプリは消費計画で実行されるため、 Blob のアップロードとトリガーされる関数の間に最大数分の遅延が生じる場合があります。App Service（Consumption ではなく）プランを使用して Function アプリを実装することにより、待ち時間を最小限に抑えることができます。
 
-1. **Monitor** ブレードに戻り、「**Application Insights でクエリを実行する**」 リンクをクリックします。
+1. **モニター** ブレードに戻り、「**Application Insights でクエリを実行する**」 リンクをクリックします。
 
 1. Application Insights ポータルで、自動生成された Kusto クエリとその結果を確認します。
 
@@ -315,7 +311,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 
 1. キューには単一のメッセージが含まれていることに注意してください。エントリをクリックして、**メッセージ プロパティ**ブレードを表示します。 
 
-1. **MESSAGE BODY** では、前のタスクでアップロードした Azure Storage Blob の URL を表す **URL** プロパティの値に注意してください。
+1. **メッセージ本文** では、前のタスクでアップロードした Azure Storage Blob の URL を表す **URL** プロパティの値に注意してください。
 
 
 #### タスク 3: ラボにデプロイした Azure リソースを削除する
