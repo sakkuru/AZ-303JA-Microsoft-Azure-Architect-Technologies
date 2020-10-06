@@ -595,7 +595,7 @@ Windows Server 管理者の認証資格情報
 
     > **注**: ラボの進行上、これらの値を厳密に選択し、できるだけ早くスケーリングをトリガーさせます。Azure VM スケール セットのスケーリングに関するガイダンスについては、 [Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview) を参照してください。 
 
-1. **az30301c-vmss** に戻る \| **スケーリング** ブレードに戻り、**ルールを追加**を選択します。
+1. **az30301c-vmss** に戻る \| **スケーリング** ブレードに戻り、**規則を追加**を選択します。
 
 1. 「**スケール ルール**」 ブレードで、次の設定を指定し、「**追加**」を選択します (他は既定値のままにします)。
 
