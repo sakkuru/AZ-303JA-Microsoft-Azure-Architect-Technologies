@@ -381,7 +381,7 @@ Windows Server 管理者の資格情報
    Set-Location -Path 'azcopy*'
    ```
 
-1. Windows PowerShell プロンプトから次のコマンドを実行し、この演習の最初のタスクで作成した Azure AD ユーザー アカウントを使用して AzCopy を認証します。 
+1. Windows PowerShell プロンプトから次のコマンドを実行し、この演習の最初のタスクで作成した Azure AD ユーザー アカウントを使用して AzCopy を認証します。 テナントID（Tenant Id)の入力が求められた場合は、 **--tenant-id <Azure AD のテナントID>** パラメタを付加して実行しなおしてください。
 
    ```powershell
    .\azcopy.exe login
@@ -467,7 +467,7 @@ Windows Server 管理者の資格情報
 
 1. Azure portal を表示しているブラウザー ウィンドウに戻り、**az30302a-share** ブレードで、**更新**を選択し、**Folder1** がフォルダーのリストに表示されるのを確認します。 
 
-1. **Folder1**を選択し、ファイルのリストに**File1.txtt**が表示されることを確認します。
+1. **Folder1**を選択し、ファイルのリストに**File1.txt**が表示されることを確認します。
 
 
 #### タスク 3: ラボにデプロイされている Azure リソースを削除する
