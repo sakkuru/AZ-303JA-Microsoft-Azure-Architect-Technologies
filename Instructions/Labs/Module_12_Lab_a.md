@@ -1,10 +1,10 @@
----
+﻿---
 lab:
     title: '12A: ステージング スロットを使用した Azure App Service Web アプリの実装'
     module: 'モジュール 12: アプリケーション インフラストラクチャの実装'
 ---
 
-# ラボ: ステージング スロットを使用した Azure App Service Web アプリの実装
+# 課題: ステージング スロットを使用した Azure App Service Web アプリの実装
 # 受講生用ラボ マニュアル
 
 ## ラボ シナリオ
@@ -28,7 +28,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 -  A/B テスト 
 
 
-## 目的
+## Objectives
   
 このラボを終了すると、下記ができるようになります。
 
@@ -39,7 +39,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
 ## ラボ環境
   
-所要時間: 60 分
+予測される所要時間: 60 分
 
 
 ## ラボ ファイル
@@ -114,7 +114,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    az webapp create --name $WEBAPPNAME --resource-group $RGNAME --plan $SPNAME --deployment-local-git
    ```
 
-    >**注**: デプロイメントが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、新しく作成された App Service Web アプリの公開 URL を取得します。
 
@@ -134,7 +134,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    git push azure master
    ```
 
-    >**注**: デプロイメントが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、新しくデプロイされた App Service Web アプリの FQDN を識別します。 
 
@@ -142,23 +142,23 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    az webapp show --name $WEBAPPNAME --resource-group $RGNAME --query defaultHostName --output tsv
    ```
 
-1. 「Cloud Shell」 ウィンドウを閉じます。
+1. 「Cloud Shell」 ペインを閉じます。
 
 
 #### タスク 2: App Service Web アプリのデプロイ スロットを作成する
 
 1. Azure portal で、**App Services** を検索して選択し、「**App Services**」 ブレードで、新しく作成した App Service Web アプリを選択します。
 
-1. Azure portal で、新しくデプロイされた App Service Web アプリを表示するブレードに移動し、「**URL**」 リンクを選択して、「**Azure App Service - Sample Static HTML Site**」が表示されていることを確認します。ブラウザー タブは開いたままにしておきます。
+1. Azure portal で、新しくデプロイされた App Service Web アプリを表示するブレードに移動し、「**URL**」 リンクを選択して、「**Azure App Service - サンプルの静的 HTML サイト**」が表示されていることを確認します。ブラウザー タブは開いたままにしておきます。
 
-1. App Service Web アプリ ブレードの 「**デプロイ**」 セクションで、「**デプロイ スロット**」 を選択してから、「**+ スロットの追加**」 を選択します。
+1. App Service Web アプリ ブレードの 「**デプロイ**」 セクションで、「**デプロイ スロット**」 を選択してから、「**+ スロットを追加**」 を選択します。
 
-1. 「**スロットの追加**」 ブレードで、次の設定を指定し、「**追加**」 を選択してから、「**閉じる**」 を選択します。
+1. 「**スロットを追加**」 ブレードで、次の設定を指定し、「**追加**」 を選択してから、「**閉じる**」 を選択します。
 
     | 設定 | 値 | 
     | --- | --- |
-    | 名前 | **staging** |
-    | 次から設定を複製 | アプリの名前を選択する |
+    | 名前 | **ステージング** |
+    | Web アプリの名前から | 設定を複製する |
 
 
 ### 演習 2: App Service Web アプリのデプロイ スロットを管理する
@@ -201,7 +201,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    <h1>Azure App Service - Sample Static HTML Site v1.0.1</h1>
    ```
 
-1. **Ctrl + S** で変更を保存し、**Ctrl + q** でエディター ウィンドウを閉じます。 
+1. 変更を保存し、エディター ウィンドウを閉じます。 
 
 1. Cloud Shell ペインから次のコマンドを実行して、必要なグローバル git 構成設定を指定します。
 
@@ -238,9 +238,9 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    git push azure-staging master
    ```
 
-    >**注**: デプロイメントが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
-1. 「Cloud Shell」 ウィンドウを閉じます。
+1. 「Cloud Shell」 ペインを閉じます。
 
 1. Azure portal で、App Service Web アプリのデプロイ スロットを表示しているブレードに移動し、ステージング スロットを選択します。
 
@@ -251,9 +251,9 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
 1. Azure portal で、App Service Web アプリを表示しているブレードに戻り、「**デプロイ スロット**」 を選択します。
 
-1. デプロイ スロット ブレードで、 「**スワップ**」 を選択します。
+1. デプロイ スロット ブレードで、 「**割り込み**」 を選択します。
 
-1. 「**スワップ**」 ブレードで、「**スワップ**」 を選択し、「**閉じる**」 を選択します。
+1. 「**割り込み**」 ブレードで、「**割り込み**」 を選択し、「**閉じる**」 を選択します。
 
 1. App Service Web アプリが表示されているブラウザー タブに切り替えて、ブラウザーの画面を更新します。ステージング スロットにデプロイした変更が表示されることを確認します。
 
@@ -262,15 +262,15 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
 #### タスク 3: A/B テストを構成する
 
-1. Azure portal で、App Service Web アプリのデプロイスロットを表示しているブレードに戻ります（Staging ストットの画面では以下の操作は行えませんのでご注意ください）。
+1. Azure portal で、App Service Web アプリの展開スロットを表示しているブレードに戻ります。
 
-1. Azure portal の App Service Web アプリのデプロイスロットを表示しているブレードで、Staging スロットを表示している行の値を **トラフィック ％** 列を 50 にします。これにより、運用スロットを表す行の **トラフィック ％** の値が自動的に 50 に設定されます。
+1. Azure portal の App Service Web アプリのデプロイ スロットを表示しているブレードで、ステージング スロットを表示している行の「**トラフィック ％**」列の値を 50 に設定します。これにより、本番スロットを表す行の**トラフィック ％**の値が自動的に 50 に設定されます。
 
 1. App Service Web アプリの展開スロットを表示しているブレードで、**保存**を選択します。 
 
 1. Azure で、検索テキストボックスのすぐ右にあるツールバーアイコンを選択して、**Cloud Shell** ペインを表示します。
 
-1. Cloud Shell ペインから次のコマンドを実行して、ターゲット Web アプリの名前とその配布グループを表す変数が設定されていることを確認します。
+1. Cloud Shell ペインから次のコマンドを実行して、目標 Web アプリの名前とその配布グループを表す変数が設定されていることを確認します。
 
    ```sh
    RGNAME='az30305a-labRG'
@@ -301,4 +301,10 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
    az group list --query "[?starts_with(name,'az30305')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
-1. 「Cloud Shell」 ウィンドウを閉じます。
+1. 「Cloud Shell」ペインから次を実行して、**az30305a1** ディレクトリを削除します。
+
+   ```sh
+   rm -r -f ~/az30305a1
+   ```
+   
+1. 「Cloud Shell」 ペインを閉じます。

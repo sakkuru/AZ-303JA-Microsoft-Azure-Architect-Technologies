@@ -1,52 +1,50 @@
----
+﻿---
 lab:
     title: '12B: メッセージベースの統合アーキテクチャの構成'
     module: 'モジュール 12: アプリケーション インフラストラクチャの実装'
 ---
 
-# ラボ: メッセージベースの統合アーキテクチャの構成
+# 課題: メッセージベースの統合アーキテクチャの構成
+
 # 受講生用ラボ マニュアル
 
 ## ラボ シナリオ
 
 Adatum Corporation には、オンプレミスのファイル サーバーに定期的にアップロードされるファイルを処理するいくつかの Web アプリケーションがあります。ファイルのサイズはさまざまですが、最大 100 MB まで可能です。Adatum は、アプリケーションを Azure App Service または Azure Functions ベースのアプリに移行し、Azure Storage を使用してアップロードされたファイルのホストを検討しています。次の 2 つのシナリオをテストする予定です。
 
-  - Azure Functions を通して、Azure Storage コンテナーにアップロードされた新しい Blob を自動的に処理します。
+- Azure Functions を通して、Azure Storage コンテナーにアップロードされた新しい Blob を自動的に処理します。
 
   - Event Grid を使用して、Azure Storage コンテナーにアップロードされた新しい Blob を参照する Azure Storage キューメッセージを生成します。
 
 これらのシナリオは、大きなメッセージを送信、受信、および操作するときに、メッセージングベースのアーキテクチャに共通の課題に対処することを目的としています。大きなメッセージをメッセージキューに直接送信することはお勧めしません。使用するリソースと消費する帯域幅が大きくなるからです。加えて、メッセージングプラットフォームは通常、大量の小さなメッセージを処理するように微調整されているため、処理速度に悪影響を与えてしまいます。さらに、メッセージングプラットフォームは通常、処理できる最大メッセージサイズを制限しています。
 
-考えられるソリューションの 1 つは、Azure Blob Store、Azure SQL、Azure Cosmos DB などの外部サービスにメッセージペイロードを保存し、保存されたペイロードへの参照を取得してから、その参照だけをメッセージバスに送信します。このアーキテクチャパターンは、「クレームチェック」として知られています。その特定のメッセージの処理に関心があるクライアントは、必要に応じて、取得した参照を使ってペイロードを取得できます。 
+考えられるソリューションの 1 つは、Azure Blob Store、Azure SQL、Azure Cosmos DB などの外部サービスにメッセージペイロードを保存し、保存されたペイロードへの参照を取得してから、その参照だけをメッセージバスに送信します。このアーキテクチャパターンは、「クレームチェック」として知られています。その特定のメッセージの処理に関心があるクライアントは、必要に応じて、取得した参照を使ってペイロードを取得できます。
 
 Azure では、このパターンはさまざまな方法により、さまざまなテクノロジーを使用して実装できますが、通常、クレーム チェックの生成を自動化し、メッセージ バスにプッシュしてクライアントが使用するか、ペイロード処理を直接トリガーするイベントに依存します。このような実装に含まれる一般的なコンポーネントの 1 つは Event Grid です。Event Grid は、構成可能な期間 (最大 24 時間) 以内にイベントを配信するイベント ルーティング サービスです。その後、イベントは破棄されるか、デッドレターになります。イベントコンテンツのアーカイブまたはイベントストリームの再生が必要な場合は、Event Hub への Event Grid サブスクリプションまたはメッセージを長期間保持できる Azure Storage のキューをセットアップすることにより、この要件を容易にすることができます。
 
-このラボでは、Azure Storage Blob サービスを使用して、処理するファイルを保存します。クライアントは、指定された Azure Blob コンテナーに共有するファイルをドロップするだけです。最初のエクササイズでは、ファイルは Azure Function によって直接消費され、サーバーレスの性質を活用します。また、Application Insights を利用してインストルメンテーションを提供し、ファイル処理の監視と分析を促進します。2番目のエクササイズでは、 Event Grid を使用して、リクエストチェックメッセージを自動的に生成し、Azure Storage キューに送信します。これにより、クライアントアプリケーションはキューをポーリングます。メッセージを取得してから、格納された参照データを使用して、Azure Blob Storage から直接ペイロードをダウンロードできます。 
+このラボでは、Azure Storage Blob サービスを使用して、処理するファイルを保存します。クライアントは、指定された Azure Blob コンテナーに共有するファイルをドロップするだけです。最初のエクササイズでは、ファイルは Azure Function によって直接消費され、サーバーレスの性質を活用します。また、Application Insights を利用してインストルメンテーションを提供し、ファイル処理の監視と分析を促進します。2番目のエクササイズでは、 Event Grid を使用して、リクエストチェックメッセージを自動的に生成し、Azure Storage キューに送信します。これにより、クライアントアプリケーションはキューをポーリングます。メッセージを取得してから、格納された参照データを使用して、Azure Blob Storage から直接ペイロードをダウンロードできます。
 
 最初のエクササイズの Azure Function が Blob Storage トリガーに依存していることに注意するべきです。次の要件を処理する場合は、 Blob ストレージトリガーではなく Event Grid トリガーを選択する必要があります。
 
-  - Blob 専用ストレージアカウント： Blob ストレージアカウントは、 Blob の入力および出力のバインディングでサポートされていますが、 Blob トリガーでサポートされていません。Blob ストレージトリガーには、汎用ストレージアカウントが必要です。
+- Blob 専用ストレージアカウント： Blob ストレージアカウントは、 Blob の入力および出力のバインディングでサポートされていますが、 Blob トリガーでサポートされていません。Blob ストレージトリガーには、汎用ストレージアカウントが必要です。
 
   - 高スケール。高スケールは、100,000 を超える Blob が含まれるコンテナー、または1秒あたり100を超える Blob 更新があるストレージアカウントとして大まかに定義できます。
 
-  - 待機時間の短縮。機能アプリが消費計画にあった場合、機能アプリがアイドル状態になっていると、新しい Blob の処理に最大10分の遅延が生じる可能性があります。この遅延を回避するには、 Event Grid トリガーを使用するか、常にオンの設定を有効にして App Service プランに切り替えてください。 
+  - 待機時間の短縮。機能アプリが消費計画にあった場合、機能アプリがアイドル状態になっていると、新しい Blob の処理に最大10分の遅延が生じる可能性があります。この遅延を回避するには、 Event Grid トリガーを使用するか、常にオンの設定を有効にして App Service プランに切り替えてください。
 
   - Blob 削除イベントの処理： Blob 削除イベントは、Blob ストレージトリガーではサポートされていません。
 
-
-## 目的
+## Objectives
   
 このラボを終了すると、下記ができるようになります。
 
--  Azure Function App Storage Blob トリガーを構成および検証
+- Azure Function App Storage Blob トリガーを構成および検証
 
--  Azure Event Grid サブスクリプションベースのキューメッセージングを構成および検証 
-
+- Azure Event Grid サブスクリプションベースのキューメッセージングを構成および検証
 
 ## ラボ環境
   
-所要時間: 60 分
-
+予測される所要時間: 60 分
 
 ## ラボ ファイル
 
@@ -62,16 +60,15 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 
 1. Azure Function App Storage Blob トリガーの検証
 
-
 #### タスク 1: Azure Function App Storage Blob トリガーの構成
 
 1. ラボのコンピューターから Web ブラウザーを起動し、 [Azure portal](https://portal.azure.com) に移動し、このラボで使用するサブスクリプションの所有者の役割を持つユーザーアカウントの認証情報を提供してサインインします。
 
 1. Azure で、検索テキストボックスのすぐ右にあるツールバーアイコンを選択して、**Cloud Shell** ペインを表示します。
 
-1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、「**Bash**」 を選択します。 
+1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、「**Bash**」 を選択します。
 
-    >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
+    >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。
 
 1. Cloud Shell ペインから次を実行して、このエクササイズで指定するリソースの名前のプレフィックスとして使用される擬似ランダムな文字列を生成します。
 
@@ -132,7 +129,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    ```sh
    export FUNCTION_NAME="az30309f${PREFIX}"
 
-   az functionapp create --name "${FUNCTION_NAME}" --resource-group "${RESOURCE_GROUP_NAME}" --storage-account "${STORAGE_ACCOUNT_NAME}" --consumption-plan-location "${LOCATION}" --runtime "dotnet" --functions-version 2
+   az functionapp create --name "${FUNCTION_NAME}" --resource-group "${RESOURCE_GROUP_NAME}" --app-insights "$APPLICATION_INSIGHTS_NAME" --app-insights-key "$APPINSIGHTS_KEY" --storage-account "${STORAGE_ACCOUNT_NAME}" --consumption-plan-location "${LOCATION}" --runtime "dotnet" --functions-version 2
    ```
 
 1. Cloud Shell ペインから、次を実行して、新しく作成された関数のアプリケーション設定を構成し、それを Application Insights および Azure Storage アカウントにリンクします。
@@ -145,19 +142,19 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 
 1. Azure ポータルに切り替えて、このタスクの前半で作成した Azure Function アプリのブレードに移動します。
 
-1. Azure 関数アプリ ブレードで、「**関数**」 をクリックし、「**+ 追加**」 をクリックします。 
+1. Azure 関数アプリ ブレードで、「**Functions**」 をクリックし、「**+ 追加**」 をクリックします。
 
-1. **新しい関数**ブレードで、「**Azure Blob Storage Trigger**」 テンプレートを選択します。
+1. **新しい関数**ブレードで、「**Azure Blob ストレージ トリガー**」 テンプレートを選択します。
 
-1. **新しい関数**ブレードで、次の値を指定し、「**関数の作成**」 を選択して Azure 関数内に新し関数 を作成します。
+1. **新しい関数**ブレードで、次を指定し、「**関数の作成**」 を選択して Azure 関数内に新し関数 を作成します。
 
-    | 設定 | 値 | 
+    | 設定 | 値 |
     | --- | --- |
-    | 名前 | **BlobTrigger** |
+    | 名前 | **Blob Trigger** |
     | パス | **workitems/{name}** |
     | ストレージ アカウントの接続:  | **STORAGE_CONNECTION_STRING** |
 
-1. Azure 関数アプリの **BlobTrigger**関数 ブレードで、「**コードとテスト**」 を選択し、run.csx ファイルのコンテンツを確認します。 
+1. Azure 関数アプリの **BlobTrigger**関数 ブレードで、「**Code + Test**」 を選択し、run.csx ファイルのコンテンツを確認します。
 
    ```csharp
    public static void Run(Stream myBlob, string name, ILogger log)
@@ -167,7 +164,6 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    ```
 
     > **注**: デフォルトでは、この関数は、新しい Blob の作成に対応するイベントを単純に記録するようにと構成されています。Blob 処理タスクを実行するには、このファイルのコンテンツを変更する必要があります。
-
 
 #### タスク 2: Azure Function App Storage Blob トリガーの検証
 
@@ -195,18 +191,23 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    az storage blob upload --file "${WORKITEM}" --container-name "${CONTAINER_NAME}" --name "${WORKITEM}" --auth-mode key --account-key "${STORAGE_ACCESS_KEY}" --account-name "${STORAGE_ACCOUNT_NAME}"
    ```
 
-1. Azure 関数アプリ ブレードで、**Developer** セクションの 「**モニター**」 エントリーをクリックします。 
+1. Azure ポータルで、前のタスクで作成した Azure Function アプリが表示するブレードに戻ります。
 
-1. Blob のアップロードを表す単一のイベントエントリに注意してください。エントリーを選択して、**起動の詳細(Invocation Details)**ブレードを表示します。
+1. 関数アプリで、「**関数**」をクリックします。
+
+1. 関数の一覧で、関数の名前をクリックします。
+
+1. 「Azure Function アプリ」ブレードで、「**監視**」エントリをクリックします。
+
+1. Blob のアップロードを表す単一のイベントエントリに注意してください。エントリを選択して、「**呼び出し履歴**」の詳細を表示します。
 
     > **注**: このエクササイズの Azure Function アプリは消費計画で実行されるため、 Blob のアップロードとトリガーされる関数の間に最大数分の遅延が生じる場合があります。App Service（Consumption ではなく）プランを使用して Function アプリを実装することにより、待ち時間を最小限に抑えることができます。
 
-1. **モニター** ブレードに戻り、「**Application Insights でクエリを実行する**」 リンクをクリックします。
+1. 「**呼び出しの詳細**」で「**Application Insights」の「クエリの実行**」をクリックします。
 
 1. Application Insights ポータルで、自動生成された Kusto クエリとその結果を確認します。
 
-
-### 演習 2: Azure Event Grid サブスクリプションベースのキューメッセージングを構成および検証 
+### 演習 2: Azure Event Grid サブスクリプションベースのキューメッセージングを構成および検証
   
 このエクササイズの主なタスクは次のとおりです。
 
@@ -215,7 +216,6 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Azure Event Grid サブスクリプションベースのキューメッセージングを検証
 
 1. ラボにデプロイした Azure リソースを削除する
-
 
 #### タスク 1: Azure Event Grid サブスクリプションベースのキューメッセージングを構成
 
@@ -233,7 +233,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    export PREFIX=$(echo `openssl rand -base64 5 | cut -c1-7 | tr '[:upper:]' '[:lower:]' | tr -cd '[[:alnum:]]._-'`)
    ```
 
-1. Cloud Shell ペインから次を実行して、ターゲットリソースグループとその既存のリソースをホストしている Azure リージョンを特定します。 
+1. Cloud Shell ペインから次を実行して、ターゲットリソースグループとその既存のリソースをホストしている Azure リージョンを特定します。
 
    ```sh
    export RESOURCE_GROUP_NAME_EXISTING='az30309a-labRG'
@@ -289,7 +289,6 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    az eventgrid event-subscription create --name "${QUEUE_SUBSCRIPTION_NAME}" --included-event-types 'Microsoft.Storage.BlobCreated' --endpoint "${STORAGE_ACCOUNT_ID}/queueservices/default/queues/${QUEUE_NAME}" --endpoint-type "storagequeue" --source-resource-id "${STORAGE_ACCOUNT_ID}"
    ```
 
-
 #### タスク 2: Azure Event Grid サブスクリプションベースのキューメッセージングを検証
 
 1. Cloud Shell ペインから次を実行して、このタスクで以前に作成した Azure ストレージアカウントにテスト Blob をアップロードします。
@@ -303,16 +302,16 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 
    az storage blob upload --file "${WORKITEM}" --container-name "${CONTAINER_NAME}" --name "${WORKITEM}" --auth-mode key --account-key "${AZURE_STORAGE_ACCESS_KEY}" --account-name "${STORAGE_ACCOUNT_NAME}"
    ```
-1. Azure ポータルで、このエクササイズの前のタスクで作成した Azure ストレージアカウントが表示されているブレードに移動します。 
 
-1. Azure ストレージ アカウントのブレードで、「**キュー**」 を選択して、キューのリストを表示します。 
+1. Azure ポータルで、このエクササイズの前のタスクで作成した Azure ストレージアカウントが表示されているブレードに移動します。
+
+1. Azure ストレージ アカウントのブレードで、「**キュー**」 を選択して、キューのリストを表示します。
 
 1. この演習の前のタスクで作成したキューを表すエントリを選択します。
 
-1. キューには単一のメッセージが含まれていることに注意してください。エントリをクリックして、**メッセージ プロパティ**ブレードを表示します。 
+1. キューには単一のメッセージが含まれていることに注意してください。エントリをクリックして、**メッセージ プロパティ**ブレードを表示します。
 
-1. **メッセージ本文** では、前のタスクでアップロードした Azure Storage Blob の URL を表す **URL** プロパティの値に注意してください。
-
+1. **MESSAGE BODY** では、前のタスクでアップロードした Azure Storage Blob の URL を表す **URL** プロパティの値に注意してください。
 
 #### タスク 3: ラボにデプロイした Azure リソースを削除する
 
@@ -330,4 +329,4 @@ Azure では、このパターンはさまざまな方法により、さまざ�
    az group list --query "[?starts_with(name,'az30309')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
-1. 「Cloud Shell」 ウィンドウを閉じます。
+1. 「Cloud Shell」 ペインを閉じます。
