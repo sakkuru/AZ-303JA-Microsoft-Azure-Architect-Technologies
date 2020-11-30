@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '5: Azure Storage File および Blob Services の実装と構成'
     module: 'モジュール 5: ストレージ アカウントの実装'
