@@ -1,7 +1,7 @@
 ---
 lab:
-    title: '5: Azure Storage File および Blob Services の実装と構成'
-    module: 'モジュール 5: ストレージ アカウントの実装'
+    title: '6: Azure Storage File および Blob Services の実装と構成'
+    module: 'モジュール 6: ストレージ アカウントの実装'
 ---
 
 # 課題: Azure Storage File および Blob Services の実装と構成
@@ -48,11 +48,11 @@ Windows サーバー管理者の認証資格情報
 
 ## ラボ ファイル
 
--  \\\\AZ303\\AllFiles\\Labs\\02\\azuredeploy30302suba.json
+-  \\\\AZ303\\AllFiles\\Labs\\06\\azuredeploy30306suba.json
 
--  \\\\AZ303\\AllFiles\\Labs\\02\\azuredeploy30302rga.json
+-  \\\\AZ303\\AllFiles\\Labs\\06\\azuredeploy30306rga.json
 
--  \\\\AZ303\\AllFiles\\Labs\\02\\azuredeploy30302rga.parameters.json
+-  \\\\AZ303\\AllFiles\\Labs\\06\\azuredeploy30306rga.parameters.json
 
 
 ### 演習 0: ラボ環境の準備
@@ -72,7 +72,7 @@ Windows サーバー管理者の認証資格情報
 
     >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
 
-1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル  **\\\\\AZ303\\AllFiles\Labs\\02\\azuredeploy30302suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
+1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル  **\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能で、ラボのコンピューターの場所に最も近い Azure リージョンの名前に置き換えます ）:
 
@@ -83,26 +83,26 @@ Windows サーバー管理者の認証資格情報
    ```powershell
    New-AzSubscriptionDeployment `
      -Location $location `
-     -Name az30302subaDeployment `
-     -TemplateFile $HOME/azuredeploy30302suba.json `
+     -Name az30306subaDeployment `
+     -TemplateFile $HOME/azuredeploy30306suba.json `
      -rgLocation $location `
-     -rgName 'az30302a-labRG'
+     -rgName 'az30306a-labRG'
    ```
 
       >**注意**: Azure VM をプロビジョニングできる Azure リージョンを特定するには、次を参照してください。 [**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/)
 
-1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\02\\azuredeploy30302rga.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306rga.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 02 \\ azuredeploy30302rga.parameters.json** をアップロードします 。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFilesLabs\\06\\azuredeploy30306rga.parameters.json** をアップロードします 。
 
 1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
 
    ```powershell
    New-AzResourceGroupDeployment `
-     -Name az30302rgaDeployment `
-     -ResourceGroupName 'az30302a-labRG' `
-     -TemplateFile $HOME/azuredeploy30302rga.json `
-     -TemplateParameterFile $HOME/azuredeploy30302rga.parameters.json `
+     -Name az30306rgaDeployment `
+     -ResourceGroupName 'az30306a-labRG' `
+     -TemplateFile $HOME/azuredeploy30306rga.json `
+     -TemplateParameterFile $HOME/azuredeploy30306rga.parameters.json `
      -AsJob
    ```
 
@@ -137,7 +137,7 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | 新しいリソース グループ **az30302a-LabRG** の名前 |
+    | リソース グループ | 新しいリソース グループ **az30306a-LabRG** の名前 |
     | ストレージ アカウント名 | 文字と数字で構成される、長さが 3 ? 24 のグローバルに一意の名前 |
     | 場所 | Azureストレージ アカウントを作成できる Azure リージョンの名前  |
     | パフォーマンス | **Standard** |
@@ -157,9 +157,9 @@ Windows サーバー管理者の認証資格情報
 
    > **注**: 続行する前に、このラボの最初に開始した Azure VM のデプロイが完了していることを確認してください。 
 
-1. Azure portal で、「**仮想マシン**」 を検索して選択し、「**仮想マシン**」 ブレードで、仮想マシンのリスト内の 「**az30302a-vm0**」 を選択します。
+1. Azure portal で、「**仮想マシン**」 を検索して選択し、「**仮想マシン**」 ブレードで、仮想マシンのリスト内の 「**az30306a-vm0**」 を選択します。
 
-1. 「**az30302a-vm0**」 ブレードで、「**接続**」 を選択し、ドロップダウン メニューで、 「**RDP**」、次に 「**RDP ファイルをダウンロード**」 を選択します。
+1. 「**az30306a-vm0**」 ブレードで、「**接続**」 を選択し、ドロップダウン メニューで、 「**RDP**」、次に 「**RDP ファイルをダウンロード**」 を選択します。
 
 1. プロンプトが表示されたら、次の認証情報を入力します。
 
@@ -168,16 +168,16 @@ Windows サーバー管理者の認証資格情報
     | ユーザー名 | **Student** |
     | パスワード | **Pa55w.rd1234** |
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内にある 「サーバー マネージャー」 ウィンドウで、「**ローカル サーバー**」 を選択し、「**IE 強化されたセキュリティ構成**」 ラベルの横にある 「**オン**」 のリンクを選択し、「**IE 強化されたセキュリティ構成**」 ダイアログ ボックスで、両方の 「**オフ**」 オプションを選択します。
+1. **az30306a-vm0** へのリモート デスクトップ セッション内にある 「サーバー マネージャー」 ウィンドウで、「**ローカル サーバー**」 を選択し、「**IE 強化されたセキュリティ構成**」 ラベルの横にある 「**オン**」 のリンクを選択し、「**IE 強化されたセキュリティ構成**」 ダイアログ ボックスで、両方の 「**オフ**」 オプションを選択します。
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内で、Internet Explorer を起動して、[Azure Storage Explorer](https://azure.microsoft.com/ja-jp/features/storage-explorer/) のダウンロード ページに移動します。
+1. **az30306a-vm0** へのリモート デスクトップ セッション内で、Internet Explorer を起動して、[Azure Storage Explorer](https://azure.microsoft.com/ja-jp/features/storage-explorer/) のダウンロード ページに移動します。
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内で、既定の設定で Azure Storage Explorer をダウンロードしてインストールします。 
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内で、既定の設定で Azure Storage Explorer をダウンロードしてインストールします。 
 
 
 #### タスク 3: アカウント レベルの Shared Access Signature を生成する
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内で、Internet Explorer を起動し、[Azure portal](https://portal.azure.com) に移動し、このラボで使用しているサブスクリプションの所有者の役割を持つユーザー アカウントの資格情報を提供してサインインします。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内で、Internet Explorer を起動し、[Azure portal](https://portal.azure.com) に移動し、このラボで使用しているサブスクリプションの所有者の役割を持つユーザー アカウントの資格情報を提供してサインインします。
 
 1. 新しく作成したストレージ アカウントのブレードに移動し、「**アクセス キー**」 を選択して、ターゲット ブレードの設定を確認します。
 
@@ -205,19 +205,19 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 4: Azure Storage Explorer を使用してBLOB コンテナーを作成する
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内で、Azure Storage Explorer を起動します。 
+1. **az30306a-vm0** へのリモート デスクトップ セッション内で、Azure Storage Explorer を起動します。 
 
 1. 「Azure Storage Explorer」 ウィンドウの 「**Azure Storage へ接続**」 ウィンドウで、「**Shared Access Signature (SAS) URI を使用する**」 を選択し、「**次へ**」 を選択します。
 
-1. 「**SAS URI で添付**」 ウィンドウの 「**表示名**」 テキストボックスに「**az30302a-blobs**」と入力し、「**URI**」 テキストボックスにクリップボードにコピーした値を貼り付け、「**次へ**」 を選択します。 
+1. 「**SAS URI で添付**」 ウィンドウの 「**表示名**」 テキストボックスに「**az30306a-blobs**」と入力し、「**URI**」 テキストボックスにクリップボードにコピーした値を貼り付け、「**次へ**」 を選択します。 
 
     >**注**: これにより、「**BLOB エンドポイント**」 テキストボックスの値が自動的に入力されます。
 
 1. 「**接続の概要**」 ウィンドウで、「**接続**」 を選択します。 
 
-1. Azure Storage Explorer ウィンドウの 「**エクスプローラー**」 ペインで、「**az30302a-blobs**」 エントリに移動して展開し、「**BLOB コンテナー**」 エンドポイントのみにアクセスできることを確認します。 
+1. Azure Storage Explorer ウィンドウの 「**エクスプローラー**」 ペインで、「**az30306a-blobs**」 エントリに移動して展開し、「**BLOB コンテナー**」 エンドポイントのみにアクセスできることを確認します。 
 
-1. 「**az30302a-blobs**」 エントリを右クリックし、右クリック メニューで 「**BLOB コンテナーの作成**」 を選択し、空のテキストボックスを使用してコンテナー名を「**container1**」に設定します。
+1. 「**az30306a-blobs**」 エントリを右クリックし、右クリック メニューで 「**BLOB コンテナーの作成**」 を選択し、空のテキストボックスを使用してコンテナー名を「**container1**」に設定します。
 
 1. 「**container1**」 を選択し、「**container1**」 ペインで 「**アップロード**」 を選択し、ドロップダウン リストで 「**ファイルのアップロード**」 を選択します。
 
@@ -232,7 +232,7 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 5: AzCopy を使用してファイルを BLOB コンテナーにアップロードする
 
-1. 「**az30302a-vm0**」 へのリモートデスクトップセッション内のブラウザーの画面の 「**Shared Access Signature**」 ブレードで、次の設定を指定します (他は既定値のままにします)。
+1. 「**az30306a-vm0**」 へのリモートデスクトップセッション内のブラウザーの画面の 「**Shared Access Signature**」 ブレードで、次の設定を指定します (他は既定値のままにします)。
 
     | 設定 | 値 | 
     | --- | --- |
@@ -256,45 +256,45 @@ Windows サーバー管理者の認証資格情報
 1. Cloud Shell ペインから次のコマンドを実行してファイルを作成し、そこにテキスト行を追加します。
 
    ```powershell
-   New-Item -Path './az30302ablob.html'
+   New-Item -Path './az30306ablob.html'
 
-   Set-Content './az30302ablob.html' '<h3>Hello from az30302ablob via SAS</h3>'
+   Set-Content './az30306ablob.html' '<h3>Hello from az30306ablob via SAS</h3>'
    ```
 
 1. Cloud Shell ペインから次のコマンドを実行し、新しく作成したファイルを Blob として、この演習の前半で作成した Azure Storage アカウントの container 1 にアップロードします（ このタスクの前半でクリップボードにコピーした Shared Access Signature の `<sas_token>` というプレースホルダ を差し替えます)。
 
    ```powershell
-   $storageAccountName = (Get-AzStorageAccount -ResourceGroupName 'az30302a-labRG')[0].StorageAccountName
+   $storageAccountName = (Get-AzStorageAccount -ResourceGroupName 'az30306a-labRG')[0].StorageAccountName
 
-   azcopy cp './az30302ablob.html' "https://$storageAccountName.blob.core.windows.net/container1/az30302ablob.html<sas_token>"
+   azcopy cp './az30306ablob.html' "https://$storageAccountName.blob.core.windows.net/container1/az30306ablob.html<sas_token>"
    ```
 
 1. AzCopy によって生成された出力を確認し、ジョブが正常に完了したことを確認します。
 
 1. 「Cloud Shell」 ペインを閉じます。
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面のストレージ アカウント ブレードで、「**BLOB サービス**」 セクションの 「**コンテナー**」 を選択します。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面のストレージ アカウント ブレードで、「**BLOB サービス**」 セクションの 「**コンテナー**」 を選択します。
 
 1. 一覧で  **container1** を選択します。
 
-1. **container1** ブレードで、 blob のリストに **az30302ablob.html** が表示されていることを確認します。
+1. **container1** ブレードで、 blob のリストに **az30306ablob.html** が表示されていることを確認します。
 
 
 #### タスク 6: BLOB レベルの Shared Access Signature を使用して BLOB にアクセスする
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面の 「**container1**」 ブレードで、「**アクセス レベルの変更**」 を選択し、「**プライベート (匿名アクセスはありません)**」 に設定されていることを確認し、「**キャンセル**」 を選択します。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面の 「**container1**」 ブレードで、「**アクセス レベルの変更**」 を選択し、「**プライベート (匿名アクセスはありません)**」 に設定されていることを確認し、「**キャンセル**」 を選択します。
 
     >**注**: 匿名アクセスを許可する場合は、パブリック アクセス レベルを次のように設定できます。 **Blob（Blob の匿名読み取りアクセスのみ）** または **コンテナー（コンテナーと Blobの匿名の読み取りアクセス）**。
 
-1. **container1** ブレードで、**az30302ablob.html**を選択 します。
+1. **container1** ブレードで、**az30306ablob.html**を選択 します。
 
-1. 「**az30302ablob.html**」 ブレードで、「**SAS の生成**」 を選択し、使用可能なオプションを変更せずに確認してから、「**SAS トークンと URL の生成**」 を選択します。
+1. 「**az30306ablob.html**」 ブレードで、「**SAS の生成**」 を選択し、使用可能なオプションを変更せずに確認してから、「**SAS トークンと URL の生成**」 を選択します。
 
 1. **HTTP POST URL** Blob の値をクリップボードにコピーします。
 
 1. Microsoft Edge の新しいタブを開き、前の手順でクリップボードにコピーした URL に移動します。
 
-1. **SAS 経由のaz30302ablob からこんにちは** というメッセージがブラウザーの画面に表示されることを確認します。
+1. **SAS 経由のaz30306ablob からこんにちは** というメッセージがブラウザーの画面に表示されることを確認します。
 
 
 ### 演習 2: Azure Active Directory を使用してAzure Storage BLOB サービスの承認を構成する
@@ -310,7 +310,7 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 1: Azure AD ユーザーの作成
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面で、「**Cloud Shell**」 ペイン内の **PowerShell** セッションを開きます。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内の、ブラウザーの画面で、「**Cloud Shell**」 ペイン内の **PowerShell** セッションを開きます。
 
 1. Cloud Shell ペインから次のコマンドを実行して、Azure AD テナントに対して明示的に認証します。
 
@@ -330,13 +330,13 @@ Windows サーバー管理者の認証資格情報
    $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
    $passwordProfile.Password = 'Pa55w.rd1234'
    $passwordProfile.ForceChangePasswordNextLogin = $false
-   New-AzureADUser -AccountEnabled $true -DisplayName 'az30302auser1' -PasswordProfile $passwordProfile -MailNickName 'az30302auser1' -UserPrincipalName "az30302auser1@$domainName"
+   New-AzureADUser -AccountEnabled $true -DisplayName 'az30306auser1' -PasswordProfile $passwordProfile -MailNickName 'az30306auser1' -UserPrincipalName "az30306auser1@$domainName"
    ```
 
 1. Cloud Shell ウィンドウから、次の操作を実行して、新しく作成された Azure AD ユーザーのユーザー プリンシパル名を識別します。
 
    ```powershell
-   (Get-AzureADUser -Filter "MailNickName eq 'az30302auser1'").UserPrincipalName
+   (Get-AzureADUser -Filter "MailNickName eq 'az30306auser1'").UserPrincipalName
    ```
 
 1. ユーザー プリンシパル名をメモします。これついては、演習の後半で取り上げます。 
@@ -346,7 +346,7 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 2: Azure Storage BLOB サービスの Azure Active Directory 承認を有効にする
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内で、Azure portal を表示しているブラウザーの画面で、「**container1**」 ブレードに戻ります。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内で、Azure portal を表示しているブラウザーの画面で、「**container1**」 ブレードに戻ります。
 
 1. 「**container1**」 ブレードで、「**Azure AD のユーザー アカウントに切り替える**」 を選択します。
 
@@ -365,11 +365,11 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 3: AzCopy を使用してファイルを BLOB コンテナーにアップロードする
 
-1. 「**az30302a-vm0**」 へのリモート デスクトップ セッション内で、ブラウザーの画面の「[AzCopy を使ってみる](https://docs.microsoft.com/ja-jp/azure/storage/common/storage-use-azcopy-v10)」に移動します。
+1. 「**az30306a-vm0**」 へのリモート デスクトップ セッション内で、ブラウザーの画面の「[AzCopy を使ってみる](https://docs.microsoft.com/ja-jp/azure/storage/common/storage-use-azcopy-v10)」に移動します。
 
 1. azcopy.zipファイルをダウンロードし、azcopy.exe を **「C:\\Labfiles」** フォルダー（必要に応じてフォルダーを作成します）に展開します。
 
-1. **「az30302a-vm0」** へのリモート デスクトップ セッション内で、Windows PowerShell を起動します。 
+1. **「az30306a-vm0」** へのリモート デスクトップ セッション内で、Windows PowerShell を起動します。 
 
 1. Windows PowerShell プロンプトから次のコマンドを実行して、**azcopy.zip** アーカイブをダウンロードし、そのコンテンツを抽出して、**azcopy.exe** を含む場所に切り替えます。
 
@@ -392,20 +392,20 @@ Windows サーバー管理者の認証資格情報
 
     >**注**: この目的では Microsoft アカウントを使用できないため、Azure AD ユーザー アカウントを最初に作成する必要がありました。
 
-1. 前のステップで実行したコマンドで生成されたメッセージの指示に従って、**az30302auser1** ユーザー アカウントとして認証します。認証資格情報の入力を求められたら、この演習の最初のタスクでメモしたアカウントのユーザー プリンシパル名とそのパスワード **Pa55w.rd1234** を入力します。
+1. 前のステップで実行したコマンドで生成されたメッセージの指示に従って、**az30306auser1** ユーザー アカウントとして認証します。認証資格情報の入力を求められたら、この演習の最初のタスクでメモしたアカウントのユーザー プリンシパル名とそのパスワード **Pa55w.rd1234** を入力します。
 
 1. 認証に成功したら、Windows PowerShell プロンプトから次のコマンドを実行して、**container1** へアップロードするファイルを作成します。
 
    ```powershell
-   New-Item -Path './az30302bblob.html'
+   New-Item -Path './az30306bblob.html'
 
-   Set-Content './az30302bblob.html' '<h3>Hello from az30302bblob via Azure AD</h3>'
+   Set-Content './az30306bblob.html' '<h3>Hello from az30306bblob via Azure AD</h3>'
    ```
 
 1. Windows PowerShell プロンプトから次のコマンドを実行して、前の演習で作成した Azure Storage アカウントの **container1** へ、新しく作成したファイルを blob としてアップロードします (プレースホルダー `<storage_account_name>` を、前のタスクでメモしたストレージ アカウントの値に置き換えます)。
 
    ```powershell
-   .\azcopy cp './az30302bblob.html' 'https://<storage_account_name>.blob.core.windows.net/container1/az30302bblob.html'
+   .\azcopy cp './az30306bblob.html' 'https://<storage_account_name>.blob.core.windows.net/container1/az30306bblob.html'
    ```
 
 1. AzCopy によって生成された出力を確認し、ジョブが正常に完了したことを確認します。
@@ -413,19 +413,19 @@ Windows サーバー管理者の認証資格情報
 1. Windows PowerShell プロンプトから次のコマンドを実行して、AzCopy ユーティリティで提供されるセキュリティ コンテキストの外部にある、アップロードされた blob にアクセスできないことを確認します (プレースホルダー `<storage_account_name>` を、前のタスクでメモしたストレージ アカウントの値に置き換えます)。
 
    ```powershell
-   Invoke-WebRequest -Uri 'https://<storage_account_name>.blob.core.windows.net/container1/az30302bblob.html'
+   Invoke-WebRequest -Uri 'https://<storage_account_name>.blob.core.windows.net/container1/az30306bblob.html'
    ```
 
-1. ブラウザーの画面の **az30302a-vm0** へのリモート デスクトップ セッション内で 、**container1** に戻ります。
+1. ブラウザーの画面の **az30306a-vm0** へのリモート デスクトップ セッション内で 、**container1** に戻ります。
 
-1. **container1** ブレードで、 blob のリストに **az30302bblob.html** が表示されていることを確認します。
+1. **container1** ブレードで、 blob のリストに **az30306bblob.html** が表示されていることを確認します。
 
 1. **container1** ブレードで、**アクセス レベルの変更** を選択し、パブリック アクセス レベルを **Blob （Blob のみの匿名読み取りアクセス）** に設定して、**OK** を選択します。 
 
 1. Windows PowerShell プロンプトに戻り、次のコマンドを再実行して、アップロードされた blob に匿名でアクセスできることを確認します（ `<storage_account_name>`プレースホルダーを、前のタスクでメモしたストレージ アカウントの値に置き換えます）:
 
    ```powershell
-   Invoke-WebRequest -Uri 'https://<storage_account_name>.blob.core.windows.net/container1/az30302bblob.html'
+   Invoke-WebRequest -Uri 'https://<storage_account_name>.blob.core.windows.net/container1/az30306bblob.html'
    ```
 
 
@@ -442,13 +442,13 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 1: Azure Storage ファイル共有を作成する
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内で、Azure portal が表示されているブラウザーの画面で、このラボの最初の演習で作成したストレージ アカウントのブレードに戻り、**ファイル サービス**セクションで、**ファイル共有**を選択します。
+1. **az30306a-vm0** へのリモート デスクトップ セッション内で、Azure portal が表示されているブラウザーの画面で、このラボの最初の演習で作成したストレージ アカウントのブレードに戻り、**ファイル サービス**セクションで、**ファイル共有**を選択します。
 
 1. **+ファイル共有**を選択し、次の設定でファイル共有を作成します:
 
     | 設定 | 値 |
     | --- | --- |
-    | 名前 | **az30302a-share** |
+    | 名前 | **az30306a-share** |
     | クォータ | **1024** |
 
 
@@ -460,7 +460,7 @@ Windows サーバー管理者の認証資格情報
 
     >**注**: Azure Storage のファイル共有マッピングでは、ターゲット共有にアクセスするために、ストレージ アカウント名と 2 つのストレージ アカウントキーの1 つを、それぞれユーザー名とパスワードに相当するものとして使用します。
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内の PowerShell プロンプトで、コピーしたスクリプトを貼り付けて実行します。
+1. **az30306a-vm0** へのリモート デスクトップ セッション内の PowerShell プロンプトで、コピーしたスクリプトを貼り付けて実行します。
 
 1. スクリプトが正常に完了したことを確認します。 
 
@@ -468,19 +468,19 @@ Windows サーバー管理者の認証資格情報
 
 1. ファイル エクスプローラーで、**Folder1** という名前のフォルダと、**File1.txt** という名前のフォルダ内にテキスト ファイルを作成します。
 
-1. Azure portal を表示しているブラウザー ウィンドウに戻り、**az30302a-share** ブレードで、**更新**を選択し、**Folder1** がフォルダーのリストに表示されるのを確認します。 
+1. Azure portal を表示しているブラウザー ウィンドウに戻り、**az30306a-share** ブレードで、**更新**を選択し、**Folder1** がフォルダーのリストに表示されるのを確認します。 
 
-1. **Folder1**を選択し、ファイルのリストに**File1.txtt**が表示されることを確認します。
+1. **Folder1**を選択し、ファイルのリストに**File1.txt**が表示されることを確認します。
 
 
 #### タスク 3: ラボにデプロイした Azure リソースを削除する
 
-1. **az30302a-vm0** へのリモート デスクトップ セッション内の Azure portal を表示しているブラウザーの画面で、Cloud Shell ペイン内で PowerShell セッションを起動します。
+1. **az30306a-vm0** へのリモート デスクトップ セッション内の Azure portal を表示しているブラウザーの画面で、Cloud Shell ペイン内で PowerShell セッションを起動します。
 
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```powershell
-   Get-AzResourceGroup -Name 'az30302*'
+   Get-AzResourceGroup -Name 'az30306*'
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -488,11 +488,11 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```powershell
-   Get-AzResourceGroup -Name 'az30302*' | Remove-AzResourceGroup -Force -AsJob
+   Get-AzResourceGroup -Name 'az30306*' | Remove-AzResourceGroup -Force -AsJob
    ```
 
 1. 「Cloud Shell」 ペインを閉じます。
 
 1. Azure portal で、Azure サブスクリプションに関連付けられている Azure Active Directory テナントの「**ユーザー**」ブレードに移動します。
 
-1. ユーザー アカウントの一覧で **az30302auser1** ユーザー アカウントを表すエントリを選択し、ツールバーの省略記号アイコンを選択して「**ユーザーの削除**」を選択し、確認のプロンプトが表示されたら「**はい**」を選択します。  
+1. ユーザー アカウントの一覧で **az30306auser1** ユーザー アカウントを表すエントリを選択し、ツールバーの省略記号アイコンを選択して「**ユーザーの削除**」を選択し、確認のプロンプトが表示されたら「**はい**」を選択します。  

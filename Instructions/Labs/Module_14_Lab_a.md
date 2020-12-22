@@ -1,7 +1,7 @@
 ---
 lab:
-    title: '12A: ステージング スロットを使用した Azure App Service Web アプリの実装'
-    module: 'モジュール 12: アプリケーション インフラストラクチャの実装'
+    title: '14A: ステージング スロットを使用した Azure App Service Web アプリの実装'
+    module: 'モジュール 14: アプリケーション インフラストラクチャの実装'
 ---
 
 # 課題: ステージング スロットを使用した Azure App Service Web アプリの実装
@@ -64,14 +64,14 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
     >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
 
-1. Cloud Shell ペインから次のコマンドを実行して、**az30305a1** という名前の新しいディレクトリを作成し、それを現在のディレクトリとして設定します。
+1. Cloud Shell ペインから次のコマンドを実行して、**az30314a1** という名前の新しいディレクトリを作成し、それを現在のディレクトリとして設定します。
 
    ```sh
-   mkdir az30305a1
-   cd ~/az30305a1/
+   mkdir az30314a1
+   cd ~/az30314a1/
    ```
 
-1. Cloud Shell ペインから次のコマンドを実行して、サンプル アプリ リポジトリを **az30305a1** ディレクトリにクローンします。
+1. Cloud Shell ペインから次のコマンドを実行して、サンプル アプリ リポジトリを **az30314a1** ディレクトリにクローンします。
 
    ```sh
    REPO=https://github.com/Azure-Samples/html-docs-hello-world.git
@@ -82,8 +82,8 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. Cloud Shell ペインから次のコマンドを実行して、デプロイ ユーザーを構成します。
 
    ```sh
-   USERNAME=az30305user$RANDOM
-   PASSWORD=az30305pass$RANDOM
+   USERNAME=az30314user$RANDOM
+   PASSWORD=az30314pass$RANDOM
    az webapp deployment user set --user-name $USERNAME --password $PASSWORD 
    echo $USERNAME
    echo $PASSWORD
@@ -96,21 +96,21 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
    ```sh
    LOCATION='<location>'
-   RGNAME='az30305a-labRG'
+   RGNAME='az30314a-labRG'
    az group create --location $LOCATION --resource-group $RGNAME
    ```
 
 1. Cloud Shell ペインから、次のコマンドを実行して、新しい App Service プランを作成します。
 
    ```sh
-   SPNAME=az30305asp$LOCATION$RANDOM
+   SPNAME=az30314asp$LOCATION$RANDOM
    az appservice plan create --name $SPNAME --resource-group $RGNAME --location $LOCATION --sku S1
    ```
 
 1. Cloud Shell ペインから、次のコマンドを実行して、Git 対応の新しい App Service Web アプリを作成します。
 
    ```sh
-   WEBAPPNAME=az30305$RANDOM$RANDOM
+   WEBAPPNAME=az30314$RANDOM$RANDOM
    az webapp create --name $WEBAPPNAME --resource-group $RGNAME --plan $SPNAME --deployment-local-git
    ```
 
@@ -178,10 +178,10 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 
 1. Azure で、検索テキストボックスのすぐ右にあるツールバーアイコンを選択して、**Cloud Shell** ペインを表示します。
 
-1. Cloud Shell ペインから次のコマンドを実行して、現在のセット **az30305a1/html-docs-hello-world** が現在のディレクトリであることを確認します。
+1. Cloud Shell ペインから次のコマンドを実行して、現在のセット **az30314a1/html-docs-hello-world** が現在のディレクトリであることを確認します。
 
    ```sh
-   cd ~/az30305a1/html-docs-hello-world
+   cd ~/az30314a1/html-docs-hello-world
    ```
 
 1. 「Cloud Shell」 ウィンドウで次のコマンドを実行して、組み込みエディターを立ち上げます。
@@ -206,8 +206,8 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. Cloud Shell ペインから次のコマンドを実行して、必要なグローバル git 構成設定を指定します。
 
    ```sh
-   git config --global user.email "user@az30305.com"
-   git config --global user.name "user az30305"
+   git config --global user.email "user@az30314.com"
+   git config --global user.name "user az30314"
    ```
 
 1. Cloud Shell ペインから次のコマンドを実行して、ローカルに適用した変更をマスター分岐にコミットします。
@@ -220,8 +220,8 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. Cloud Shell ペインから次のコマンドを実行して、App Service Web アプリの新しく作成されたステージング スロットの公開 URL を取得します。
 
    ```sh
-   RGNAME='az30305a-labRG'
-   WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30305')]".name --output tsv)
+   RGNAME='az30314a-labRG'
+   WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30314')]".name --output tsv)
    SLOTNAME='staging'
    URLSTAGING=$(az webapp deployment list-publishing-credentials --name $WEBAPPNAME --slot $SLOTNAME --resource-group $RGNAME --query scmUri --output tsv)
    ```
@@ -273,8 +273,8 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. Cloud Shell ペインから次のコマンドを実行して、目標 Web アプリの名前とその配布グループを表す変数が設定されていることを確認します。
 
    ```sh
-   RGNAME='az30305a-labRG'
-   WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30305')]".name --output tsv)
+   RGNAME='az30314a-labRG'
+   WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30314')]".name --output tsv)
    ```
 
 1. Cloud Shell ペインから次を数回実行して、2 つのスロット間のトラフィック分布を特定します。
@@ -290,7 +290,7 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```sh
-   az group list --query "[?starts_with(name,'az30305')]".name --output tsv
+   az group list --query "[?starts_with(name,'az30314')]".name --output tsv
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -298,13 +298,13 @@ Adatum Architecture チームは、次の 2 つのデプロイ パターンを�
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```sh
-   az group list --query "[?starts_with(name,'az30305')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+   az group list --query "[?starts_with(name,'az30314')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
-1. 「Cloud Shell」ペインから次を実行して、**az30305a1** ディレクトリを削除します。
+1. 「Cloud Shell」ペインから次を実行して、**az30314a1** ディレクトリを削除します。
 
    ```sh
-   rm -r -f ~/az30305a1
+   rm -r -f ~/az30314a1
    ```
    
 1. 「Cloud Shell」 ペインを閉じます。

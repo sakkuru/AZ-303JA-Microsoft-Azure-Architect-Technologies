@@ -1,7 +1,7 @@
 ---
 lab:
-    title: '12B: メッセージベースの統合アーキテクチャの構成'
-    module: 'モジュール 12: アプリケーション インフラストラクチャの実装'
+    title: '14B: メッセージベースの統合アーキテクチャの構成'
+    module: 'モジュール 14: アプリケーション インフラストラクチャの実装'
 ---
 
 # 課題: メッセージベースの統合アーキテクチャの構成
@@ -85,7 +85,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから次を実行して、このラボでプロビジョニングするすべてのリソースをホストするリソースグループを作成します。
 
    ```sh
-   export RESOURCE_GROUP_NAME='az30309a-labRG'
+   export RESOURCE_GROUP_NAME='az30314b-labRG'
 
    az group create --name "${RESOURCE_GROUP_NAME}" --location "$LOCATION"
    ```
@@ -93,7 +93,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから、次を実行して、Azure ストレージ アカウントと、Azure 関数によって処理される Blob をホストするコンテナーを作成します。
 
    ```sh
-   export STORAGE_ACCOUNT_NAME="az30309a${PREFIX}"
+   export STORAGE_ACCOUNT_NAME="az30314b${PREFIX}"
 
    export CONTAINER_NAME="workitems"
 
@@ -117,7 +117,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから次のコマンドを実行して、Azure Function 処理ブロブの監視をします。そのキーを変数に保存する Application Insights リソースを作成します。
 
    ```sh
-   export APPLICATION_INSIGHTS_NAME="az30309ai${PREFIX}"
+   export APPLICATION_INSIGHTS_NAME="az30314bi${PREFIX}"
 
    az resource create --name "${APPLICATION_INSIGHTS_NAME}" --location "${LOCATION}" --properties '{"Application_Type": "other", "ApplicationId": "function", "Flow_Type": "Redfield"}' --resource-group "${RESOURCE_GROUP_NAME}" --resource-type "Microsoft.Insights/components"
 
@@ -127,7 +127,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから、次を実行して、Azure Storage Blob の作成に対応するイベントを処理する Azure Function を作成します。
 
    ```sh
-   export FUNCTION_NAME="az30309f${PREFIX}"
+   export FUNCTION_NAME="az30314f${PREFIX}"
 
    az functionapp create --name "${FUNCTION_NAME}" --resource-group "${RESOURCE_GROUP_NAME}" --app-insights "$APPLICATION_INSIGHTS_NAME" --app-insights-key "$APPINSIGHTS_KEY" --storage-account "${STORAGE_ACCOUNT_NAME}" --consumption-plan-location "${LOCATION}" --runtime "dotnet" --functions-version 2
    ```
@@ -172,7 +172,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから次を実行して、前のタスクで使用した変数を再入力します。
 
    ```sh
-   export RESOURCE_GROUP_NAME='az30309a-labRG'
+   export RESOURCE_GROUP_NAME='az30314b-labRG'
 
    export STORAGE_ACCOUNT_NAME="$(az storage account list --resource-group "${RESOURCE_GROUP_NAME}" --query "[0].name" --output tsv)"
 
@@ -236,11 +236,11 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから次を実行して、ターゲットリソースグループとその既存のリソースをホストしている Azure リージョンを特定します。
 
    ```sh
-   export RESOURCE_GROUP_NAME_EXISTING='az30309a-labRG'
+   export RESOURCE_GROUP_NAME_EXISTING='az30314b-labRG'
 
    export LOCATION=$(az group list --query "[?name == '${RESOURCE_GROUP_NAME_EXISTING}'].location" --output tsv)
 
-   export RESOURCE_GROUP_NAME='az30309b-labRG'
+   export RESOURCE_GROUP_NAME='az30314c-labRG'
 
    az group create --name "${RESOURCE_GROUP_NAME}" --location $LOCATION
    ```
@@ -248,7 +248,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから、次を実行して、このタスクで構成する Event Grid サブスクリプションで使用されるコンテナーをホストする Azure ストレージ アカウントを作成します。
 
    ```sh
-   export STORAGE_ACCOUNT_NAME="az30309bst${PREFIX}"
+   export STORAGE_ACCOUNT_NAME="az30314cst${PREFIX}"
 
    export CONTAINER_NAME="workitems"
 
@@ -276,7 +276,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから次を実行して、このタスクで構成する Event Grid サブスクリプションによって生成されたメッセージを保存するストレージアカウントキューを作成します。
 
    ```sh
-   export QUEUE_NAME="az30309bq${PREFIX}"
+   export QUEUE_NAME="az30314cq${PREFIX}"
 
    az storage queue create --name "${QUEUE_NAME}" --account-name "${STORAGE_ACCOUNT_NAME}" --connection-string "${STORAGE_CONNECTION_STRING}"
    ```
@@ -284,7 +284,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから、次を実行して、Azure Storage アカウントの指定されたコンテナーへの Blob アップロードに応じて Azure Storage キューでメッセージの生成を促進する Event Grid サブスクリプションを作成します。
 
    ```sh
-   export QUEUE_SUBSCRIPTION_NAME="az30309bqsub${PREFIX}"
+   export QUEUE_SUBSCRIPTION_NAME="az30314cqsub${PREFIX}"
 
    az eventgrid event-subscription create --name "${QUEUE_SUBSCRIPTION_NAME}" --included-event-types 'Microsoft.Storage.BlobCreated' --endpoint "${STORAGE_ACCOUNT_ID}/queueservices/default/queues/${QUEUE_NAME}" --endpoint-type "storagequeue" --source-resource-id "${STORAGE_ACCOUNT_ID}"
    ```
@@ -318,7 +318,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```sh
-   az group list --query "[?starts_with(name,'az30309')]".name --output tsv
+   az group list --query "[?starts_with(name,'az30314')]".name --output tsv
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -326,7 +326,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```sh
-   az group list --query "[?starts_with(name,'az30309')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+   az group list --query "[?starts_with(name,'az30314')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
 1. 「Cloud Shell」 ペインを閉じます。

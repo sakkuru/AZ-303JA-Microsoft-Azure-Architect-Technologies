@@ -1,7 +1,7 @@
 ---
 lab:
-    title: '4: 高可用性 Azure IaaS コンピューティング アーキテクチャの実装'
-    module: 'モジュール 4: 負荷分散とネットワーク セキュリティの実装'
+    title: '05: 高可用性 Azure IaaS コンピューティング アーキテクチャの実装'
+    module: 'モジュール 05: 負荷分散とネットワーク セキュリティの実装'
 ---
 
 # 課題: 高可用性 Azure IaaS コンピューティング アーキテクチャの実装
@@ -57,21 +57,21 @@ Windows サーバー管理者の認証資格情報
 
 ## ラボ ファイル
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301suba.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305suba.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rga.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rga.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rga.parameters.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rga.parameters.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgb.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgb.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgb.parameters.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgb.parameters.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgc.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgc.parameters.json
+-  \\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.parameters.json
 
--  \\AZ303\\AllFiles\\Labs\\01\\az30301e-configure_VMSS_with_data_disk.ps1
+-  \\AZ303\\AllFiles\\Labs\\05\\az30305e-configure_VMSS_with_data_disk.ps1
 
 
 ## 指示
@@ -103,7 +103,7 @@ Windows サーバー管理者の認証資格情報
    az provider register --namespace 'Microsoft.Insights'
    ```
 
-1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
+1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行してリソース グループを作成します (`<Azure region>` プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能で、ラボ コンピューターの場所に最も近い Azure リージョンの名前に置き換えます)。
 
@@ -114,23 +114,23 @@ Windows サーバー管理者の認証資格情報
    ```Bash
    az deployment sub create \
    --location $LOCATION \
-   --template-file azuredeploy30301suba.json \
-   --parameters rgName=az30301a-labRG rgLocation=$LOCATION
+   --template-file azuredeploy30305suba.json \
+   --parameters rgName=az30305a-labRG rgLocation=$LOCATION
    ```
 
       >**注意**: Azure VM をプロビジョニングできる Azure リージョンを特定するには、次を参照してください。 [**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/)
 
-1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rga.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rga.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rga.parameters.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rga.parameters.json** をアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行して、Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Basic を同じ可用性セットにデプロイします。
 
    ```Bash
    az deployment group create \
-   --resource-group az30301a-labRG \
-   --template-file azuredeploy30301rga.json \
-   --parameters @azuredeploy30301rga.parameters.json
+   --resource-group az30305a-labRG \
+   --template-file azuredeploy30305rga.json \
+   --parameters @azuredeploy30305rga.parameters.json
    ```
 
     > **注**: 次のタスクを進める前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
@@ -147,8 +147,8 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301a-labRG** |
-    | Virtual Network | **az30301a-vnet** |
+    | リソース グループ | **az30305a-labRG** |
+    | Virtual Network | **az30305a-vnet** |
 
 1. トポロジ図を確認し、パブリック IP アドレス、ロードバランサー、およびバックエンドプール内の Azure VM  のネットワークアダプター間の接続に注意を払います。
 
@@ -159,15 +159,15 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301a-labRG** |
-    | 仮想マシン | **az30301a-vm0** |
-    | ネットワーク インターフェイス | **az30301a-nic0** |
+    | リソース グループ | **az30305a-labRG** |
+    | 仮想マシン | **az30305a-vm0** |
+    | ネットワーク インターフェイス | **az30305a-nic0** |
 
 1. 関連するネットワーク セキュリティ グループと、RDP および HTTP を介した受信接続を許可する 2  つのカスタム ルールを含む有効なセキュリティ ルールを確認します。  
 
     > **注**: 「**有効なセキュリティ ルール**」は、
-    - **az30301a-nic0** の「ネットワーク インターフェイス」ブレードから表示することもできます。
-    - **az30301a-web-nsg** の「ネットワーク セキュリティ グループ」ブレード 
+    - **az30305a-nic0** の「ネットワーク インターフェイス」ブレードから表示することもできます。
+    - **az30305a-web-nsg** の「ネットワーク セキュリティ グループ」ブレード 
     
 1. **Network Watcher** ブレードで、「**接続の問題解決**」 を選択します。
 
@@ -178,14 +178,14 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301a-labRG** |
+    | リソース グループ | **az30305a-labRG** |
     | ソース タイプ | **仮想マシン** |
-    | 仮想マシン | **az30301a-vm0** |
+    | 仮想マシン | **az30305a-vm0** |
     | 宛先 | **仮想マシンを選択する** |
-    | リソース グループ | **az30301a-labRG** |
-    | 仮想マシン | **az30301a-vm1** |
+    | リソース グループ | **az30305a-labRG** |
+    | 仮想マシン | **az30305a-vm1** |
     | プロトコル | **TCP** |
-    | 宛先ポート| **62500** |
+    | 宛先ポート| **80** |
 
     > **注**: **Azure Network Watcher エージェント** VM 拡張機能を Azure VM にインストールするには数分かかります。
 
@@ -193,9 +193,9 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 両方の VM が同じ可用性セット内（同じ Azureデータセンター内）にあるため、遅延時間は 1 ミリ秒程度のはずです。
 
-1. Azureポータルで、 **az30301a-labRG** リソース グループ ブレードのリソースリストで、 **az30301a-avset** 可用性セット エントリ、および **az30301a-avset** ブレードで、2 つの Azure VM に割り当てられた障害ドメインと更新ドメインの値を確認します。
+1. Azureポータルで、 **az30305a-labRG** リソース グループ ブレードのリソースリストで、 **az30305a-avset** 可用性セット エントリ、および **az30305a-avset** ブレードで、2 つの Azure VM に割り当てられた障害ドメインと更新ドメインの値を確認します。
 
-1. Azure ポータルで、 **az30301a-labRG** リソース グループ ブレードのリソース リストで、 **az30301a-lb** 負荷分散装置のエントリ、および **az30301a-lb** ブレード、パブリック IP アドレスのエントリに注意します。
+1. Azure ポータルで、 **az30305a-labRG** リソース グループ ブレードのリソース リストで、 **az30305a-lb** 負荷分散装置のエントリ、および **az30305a-lb** ブレード、パブリック IP アドレスのエントリに注意します。
 
 1. Azure portal の Cloud Shell ペインで **Bash** セッションを開始します。 
 
@@ -207,9 +207,9 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 返されたメッセージが、要求がラウンドロビン方式でバックエンド Azure VM に配信されていることを示していることを確認します
 
-1. 「**az30301a-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30301a-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303001a-lbruletcp80**」 エントリを選択します。 
+1. 「**az30305a-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30305a-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303005a-lbruletcp80**」 エントリを選択します。 
 
-1. 「**az303001a-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
+1. 「**az303005a-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
 
 1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
@@ -219,7 +219,7 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 返されたメッセージでは、同じバックエンドの Azure VM にリクエストが配信されていることを示していることを確認してください
 
-1. Azure portal で、「**az30301a-lb**」 ブレードに戻り、「**受信 NAT 規則**」 エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
+1. Azure portal で、「**az30305a-lb**」 ブレードに戻り、「**受信 NAT 規則**」 エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
@@ -245,7 +245,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```Bash
-   az group list --query "[?starts_with(name,'az30301a-')]".name --output tsv
+   az group list --query "[?starts_with(name,'az30305a-')]".name --output tsv
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -253,7 +253,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```sh
-   az group list --query "[?starts_with(name,'az30301a-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+   az group list --query "[?starts_with(name,'az30305a-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
 1. 「Cloud Shell」 ペインを閉じます。
@@ -276,7 +276,7 @@ Windows サーバー管理者の認証資格情報
 
 1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、「**Bash**」 を選択します。 
 
-1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301subb.json** を Cloud Shell ホーム ディレクトリにアップロードします。
+1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305subb.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行してリソース グループを作成します (`<Azure region>` プレースホルダーを、サブスクリプションで使用可能で、ラボ コンピューターの場所に最も近い Azure リージョンの名前に置き換えます)。
 
@@ -287,21 +287,21 @@ Windows サーバー管理者の認証資格情報
    ```Bash
    az deployment sub create \
    --location $LOCATION \
-   --template-file azuredeploy30301subb.json \
-   --parameters rgName=az30301b-labRG rgLocation=$LOCATION
+   --template-file azuredeploy30305subb.json \
+   --parameters rgName=az30305b-labRG rgLocation=$LOCATION
    ```
 
-1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgb.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgb.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgb.parameters.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgb.parameters.json** をアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行して、2 つの Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Standard をデプロイします。
 
    ```Bash
    az deployment group create \
-   --resource-group az30301b-labRG \
-   --template-file azuredeploy30301rgb.json \
-   --parameters @azuredeploy30301rgb.parameters.json
+   --resource-group az30305b-labRG \
+   --template-file azuredeploy30305rgb.json \
+   --parameters @azuredeploy30305rgb.parameters.json
    ```
 
     > **注**: 次のタスクを進める前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
@@ -318,8 +318,8 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301b-labRG** |
-    | Virtual Network | **az30301b-vnet** |
+    | リソース グループ | **az30305b-labRG** |
+    | Virtual Network | **az30305b-vnet** |
 
 1. トポロジ図を確認し、パブリック IP アドレス、ロードバランサー、およびバックエンドプール内の Azure VM  のネットワークアダプター間の接続に注意を払います。
 
@@ -332,17 +332,17 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301b-labRG** |
-    | 仮想マシン | **az30301b-vm0** |
-    | ネットワーク インターフェイス | **az30301b-nic0** |
+    | リソース グループ | **az30305b-labRG** |
+    | 仮想マシン | **az30305b-vm0** |
+    | ネットワーク インターフェイス | **az30305b-nic0** |
 
 1. 関連するネットワーク セキュリティ グループと、RDP および HTTP を介した受信接続を許可する 2  つのカスタム ルールを含む有効なセキュリティ ルールを確認します。 
 
     > **注**: この登録情報は前の演習で表示したものと実質的に同じですが、ネットワークレベルの保護は、両方の Azure VM が接続されているサブネットに関連付けられたネットワーク セキュリティ グループを使用して実装されています。ただし、この場合、Azure Load Balancer Standard SKU を使用するため、HTTP および RDP トラフィックがバックエンド プールの Azure VM に到達するためにネットワーク セキュリティ グループが必要です (Basic SKU を使用する場合、NSG はオプションです)。  
     
     > **注**: **有効なセキュリティ ルール**を
-    - **az30301a-nic0** の「ネットワーク インターフェイス」ブレードから表示することもできます。
-    - **az30301a-web-nsg** の「ネットワーク セキュリティ グループ」ブレード 
+    - **az30305a-nic0** の「ネットワーク インターフェイス」ブレードから表示することもできます。
+    - **az30305a-web-nsg** の「ネットワーク セキュリティ グループ」ブレード 
 
 1. **Network Watcher** ブレードで、「**接続の問題解決**」 を選択します。
 
@@ -353,12 +353,12 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301b-labRG** |
+    | リソース グループ | **az30305b-labRG** |
     | ソース タイプ | **仮想マシン** |
-    | 仮想マシン | **az30301b-vm0** |
+    | 仮想マシン | **az30305b-vm0** |
     | 宛先 | **仮想マシンを選択する** |
-    | リソース グループ | **az30301b-labRG** |
-    | 仮想マシン | **az30301b-vm1** |
+    | リソース グループ | **az30305b-labRG** |
+    | 仮想マシン | **az30305b-vm1** |
     | プロトコル | **TCP** |
     | 宛先ポート| **62500** |
 
@@ -368,13 +368,13 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 2 つの VM は異なるゾーン (異なる Azure データセンター内) にあるため、待ち時間が前の演習で確認した時間よりわずかに長くなる可能性があります。
 
-1. Azure portal で、「**az30301b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30301b-vm0**」 仮想マシン エントリを選択し、「**az30301b-vm0**」 ブレードで 「**場所**」 および 「**可用性ゾーン**」 エントリを確認します。 
+1. Azure portal で、「**az30305b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30305b-vm0**」 仮想マシン エントリを選択し、「**az30305b-vm0**」 ブレードで 「**場所**」 および 「**可用性ゾーン**」 エントリを確認します。 
 
-1. Azure portal で、「**az30301b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30301b-vm1**」 仮想マシン エントリを選択し、「**az30301b-vm1**」 ブレードで 「**場所**」 および 「**可用性ゾーン**」 エントリを確認します。 
+1. Azure portal で、「**az30305b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30305b-vm1**」 仮想マシン エントリを選択し、「**az30305b-vm1**」 ブレードで 「**場所**」 および 「**可用性ゾーン**」 エントリを確認します。 
 
     > **注**: 確認したエントリにより、各 Azure VM が異なる可用性ゾーンにあることが確認されます。
 
-1. Azure portal で、「**az30301b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30301b-lb**」 負荷分散装置エントリを選択し、「**az30301b-lb**」 ブレードでパブリック IP アドレス エントリを確認します。
+1. Azure portal で、「**az30305b-labRG**」 リソース グループ ブレードに移動し、リソース リストで 「**az30305b-lb**」 負荷分散装置エントリを選択し、「**az30305b-lb**」 ブレードでパブリック IP アドレス エントリを確認します。
 
 1. Azure portal の Cloud Shell ペインで、新しい **Bash** セッションを起動します。 
 
@@ -386,9 +386,9 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 返されたメッセージが、要求がラウンドロビン方式でバックエンド Azure VM に配信されていることを示していることを確認します
 
-1. 「**az30301b-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30301b-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303001b-lbruletcp80**」 エントリを選択します。 
+1. 「**az30305b-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30305b-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303005b-lbruletcp80**」 エントリを選択します。 
 
-1. 「**az303001b-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
+1. 「**az303005b-lbruletcp80**」 ブレードの 「**セッション永続化**」 ドロップダウン リストで、「**クライアント IP**」 を選択し、「**保存**」 を選択します。
 
 1. 更新が完了するのを待ち、Cloud Shell ペインから以下を再実行して、セッション永続性がない Azure Load Balancer のバックエンド プール内にある Azure VM に対する HTTP トラフィックの負荷分散をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
@@ -398,7 +398,7 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 返されたメッセージでは、同じバックエンドの Azure VM にリクエストが配信されていることを示していることを確認してください
 
-1. Azure portal で、「**az30301b-lb**」 ブレードに戻り、「**受信 NAT 規則**」 エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
+1. Azure portal で、「**az30305b-lb**」 ブレードに戻り、「**受信 NAT 規則**」 エントリを選択して、TCP ポート 33890 および 33891 を介してリモート デスクトップ経由でそれぞれバックエンド プール VM の最初と 2 番目に接続できるようにする 2 つの規則をメモします。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、Azure Load Balancer のバックエンド プールにある最初の Azure VM への NAT 経由のリモート デスクトップの接続をテストします (`<lb_IP_address>` プレースホルダーを、前に特定した負荷分散装置のフロントエンド IP アドレスに置き換えます)。
 
@@ -418,28 +418,28 @@ Windows サーバー管理者の認証資格情報
 
 1. **Ctrl+C** キーを押して、Bash シェル プロンプトに戻り、Cloud Shell ペインを閉じます。
 
-1. 「**az30301b-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30301b-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303001b-lbruletcp80**」 エントリを選択します。 
+1. 「**az30305b-lb**」 ブレードで、「**負荷分散規則**」 エントリを選択し、「**az30305b-lb \| 負荷分散規則**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**az303005b-lbruletcp80**」 エントリを選択します。 
 
-1. **az303001b-lbruletcp80** ブレードの「**Outbound source network address translation (発信元ネットワーク アドレス変換) (SNAT)**」セクションで、「**(Recommended) Use outbound rules to provide backend pool memebers access to the internet (推奨: アウトバウンド ルールを使用してバックエンドのプール メンバーにインターネットへのアクセスを提供)**」を選択し、「**保存**」を選択します。
+1. **az303005b-lbruletcp80** ブレードの「**Outbound source network address translation (発信元ネットワーク アドレス変換) (SNAT)**」セクションで、「**(Recommended) Use outbound rules to provide backend pool memebers access to the internet (推奨: アウトバウンド ルールを使用してバックエンドのプール メンバーにインターネットへのアクセスを提供)**」を選択し、「**保存**」を選択します。
 
-1. 「**az30301b-lb**」 ブレードに戻り、「**アウトバウンド規則**」 エントリを選択し、「**az30301b-lb \| アウトバウンド規則**」 ブレード、「**+ 追加**」 を選択します。
+1. 「**az30305b-lb**」 ブレードに戻り、「**アウトバウンド規則**」 エントリを選択し、「**az30305b-lb \| アウトバウンド規則**」 ブレード、「**+ 追加**」 を選択します。
 
 1. 「**アウトバウンド規則を追加**」 ブレードで、次の設定を指定し、「**追加**」 を選択します (他のすべての設定は既定値のままにします)。
 
     | 設定 | 値 | 
     | --- | --- |
-    | 名前 | **az303001b-obrule** | 
-    | フロントエンド IP アドレス | **az30301b-lb** 負荷分散装置の既存のフロントエンド IP アドレスの名前 |
-    | バックエンド プール | **az30301b-bepool** |
+    | 名前 | **az303005b-obrule** | 
+    | フロントエンド IP アドレス | **az30305b-lb** 負荷分散装置の既存のフロントエンド IP アドレスの名前 |
+    | バックエンド プール | **az30305b-bepool** |
     | ポート配賦 | **送信ポートの数を手動で選択する** |
     | 以下から選択 | **バックエンド インスタンスの最大数** |
     | バックエンド インスタンスの最大数 | **3** |
 
     > **注**: Azure Load Balancer Standard では、送信トラフィック専用のフロントエンド IP アドレスを指定できます (複数のフロントエンド IP アドレスが割り当てられている場合)。
 
-1. Azure portal で、**az30301b-labRG** リソース グループ ブレードに移動し、リソースのリストで仮想マシン **az30301b-vm0** のエントリを選択し、**az30301b-vm0** ブレードの**操作**ブレードで 「**実行コマンド**」 を選択します。
+1. Azure portal で、**az30305b-labRG** リソース グループ ブレードに移動し、リソースのリストで仮想マシン **az30305b-vm0** のエントリを選択し、**az30305b-vm0** ブレードの**操作**ブレードで 「**実行コマンド**」 を選択します。
 
-1. 「**az30301b-vm0 \| 実行コマンド** ブレード、**RunPowerShellScript** を選択します。 
+1. 「**az30305b-vm0 \| 実行コマンド** ブレード、**RunPowerShellScript** を選択します。 
 
 1. **実行コマンド** ブレードの **PowerShell スクリプト** テキスト ボックスに次のように入力し、「**実行**」 を選択します。
 
@@ -459,7 +459,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```Bash
-   az group list --query "[?starts_with(name,'az30301b-')]".name --output tsv
+   az group list --query "[?starts_with(name,'az30305b-')]".name --output tsv
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -467,7 +467,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```Bash
-   az group list --query "[?starts_with(name,'az30301b-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+   az group list --query "[?starts_with(name,'az30305b-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
 
 1. 「Cloud Shell」 ペインを閉じます。
@@ -490,22 +490,22 @@ Windows サーバー管理者の認証資格情報
 
 1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、「**Bash**」 を選択します。 
 
-1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301subc.json** を Cloud Shell ホーム ディレクトリにアップロードします。
+1. Cloud Shell ペインのツールバーで、「**ファイルのアップロード/ダウンロード**」 アイコンを選択し、ドロップダウン メニューで 「**アップロード**」 を選択して、ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305subc.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行してリソース グループを作成します (`<Azure region>` プレースホルダーを、サブスクリプションで使用可能で、ラボ コンピューターの場所に最も近い Azure リージョンの名前に置き換えます)。
 
    ```Bash
-   az deployment sub create --location '<Azure region>' --template-file azuredeploy30301subc.json --parameters rgName=az30301c-labRG rgLocation='<Azure region>'
+   az deployment sub create --location '<Azure region>' --template-file azuredeploy30305subc.json --parameters rgName=az30305c-labRG rgLocation='<Azure region>'
    ```
 
-1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgc.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\01\\azuredeploy30301rgc.parameters.json** をアップロードします。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.parameters.json** をアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行して、Azure Application Gateway をデプロイします。そのバックエンド プールは、さまざまな Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されています。
 
    ```
-   az deployment group create --resource-group az30301c-labRG --template-file azuredeploy30301rgc.json --parameters @azuredeploy30301rgc.parameters.json
+   az deployment group create --resource-group az30305c-labRG --template-file azuredeploy30305rgc.json --parameters @azuredeploy30305rgc.parameters.json
    ```
 
     > **注**: 次のタスクを進める前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
@@ -522,8 +522,8 @@ Windows サーバー管理者の認証資格情報
     | 設定 | 値 | 
     | --- | --- |
     | サブスクリプション | このラボのために使用する Azure サブスクリプションの名前 |
-    | リソース グループ | **az30301c-labRG** |
-    | Virtual Network | **az30301c-vnet** |
+    | リソース グループ | **az30305c-labRG** |
+    | Virtual Network | **az30305c-vnet** |
 
 1. 結果のトポロジ ダイアグラムを確認し、パブリック IP アドレス、負荷分散装置、および Azure Virtual Machine Scale Set 内の Azure VM インスタンスのネットワーク アダプター間の接続をバックエンド プールに記録します。 
 
@@ -531,19 +531,19 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: この構成では、Network Watcher を使用して有効なネットワーク セキュリティ ルールを表示することはできません (Azure VM と Azure VM Scale Set のインスタンスの違いの 1 つ)。同様に、Azure Application Gateway からの接続をテストすることは可能ですが、**接続の問題解決**を使用して Azure VM Scale Set インスタンスからのネットワーク接続をテストすることはできません。
 
-1. Azure portal で、リソースリストから **az30301c-labRG** リソース グループ ブレードに移動し、**az30301c-vmss** 仮想マシン スケール セットのエントリを選択します。 
+1. Azure portal で、リソースリストから **az30305c-labRG** リソース グループ ブレードに移動し、**az30305c-vmss** 仮想マシン スケール セットのエントリを選択します。 
 
-1. **az30301c-vmss** ブレードで、**場所**と**障害ドメイン**のエントリを確認します。 
+1. **az30305c-vmss** ブレードで、**場所**と**障害ドメイン**のエントリを確認します。 
 
     > **注**: Azure VM とは異なり、Azure VM Scale Sets の個々のインスタンスは、同じゾーンにデプロイされたインスタンスを含め、別々の障害ドメインにデプロイされます。さらに、5 つの障害ドメインをサポートします (使用できる障害ドメインが最大で 3 つである Azure VM とは異なります)。 
 
-1. 「**az30301c-vmss**」 ブレードで 「**インスタンス**」 を選択し、「**az30301c-vmss \| インスタンス**」 ブレードの最初のインスタンスを選択し、「**場所**」 プロパティの値を確認して可用性ゾーンを識別します。 
+1. 「**az30305c-vmss**」 ブレードで 「**インスタンス**」 を選択し、「**az30305c-vmss \| インスタンス**」 ブレードの最初のインスタンスを選択し、「**場所**」 プロパティの値を確認して可用性ゾーンを識別します。 
 
-1. 「**az30301c-vmss**」 \| に戻ります**インスタンス**ブレードに戻り、2 番目のインスタンスを選択し、「**場所**」 プロパティの値を確認して可用性ゾーンを識別します。 
+1. 「**az30305c-vmss**」 \| に戻ります**インスタンス**ブレードに戻り、2 番目のインスタンスを選択し、「**場所**」 プロパティの値を確認して可用性ゾーンを識別します。 
 
     > **注**: 各インスタンスが異なる可用性ゾーンにあることを確認します。
 
-1. Azure portal で、「**az30301c-labRG**」 リソース グループ ブレードに移動し、リソースのリストで、「**az30301c-appgw**」 ロード バランサー エントリを選択し、「**az30301c-appgw**」 ブレードで 、パブリック IP アドレスのエントリをメモします。
+1. Azure portal で、「**az30305c-labRG**」 リソース グループ ブレードに移動し、リソースのリストで、「**az30305c-appgw**」 ロード バランサー エントリを選択し、「**az30305c-appgw**」 ブレードで 、パブリック IP アドレスのエントリをメモします。
 
 1. Azure portal の Cloud Shell ペインで、新しい **Bash** セッションを起動します。 
 
@@ -555,7 +555,7 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: 返されたメッセージが、要求がラウンドロビン方式でバックエンド Azure VM に配信されていることを示していることを確認します
 
-1. 「**az30301c-appgw**」 ブレードで、「**HTTP 設定**」 エントリを選択し、「**az30301c-appgw**」 \| で 「**HTTP 設定**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**appGwBackentHttpSettings**」 エントリを選択します。 
+1. 「**az30305c-appgw**」 ブレードで、「**HTTP 設定**」 エントリを選択し、「**az30305c-appgw**」 \| で 「**HTTP 設定**」 ブレードで、HTTP トラフィックを処理する負荷分散規則を表す 「**appGwBackentHttpSettings**」 エントリを選択します。 
 
 1. 「**appGwBackentHttpSettings**」 ブレードで、変更を加えずに既存の設定を確認し、「**Cookie ベースのアフィニティ**」 を有効にできることに注意します。
 
@@ -574,9 +574,9 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 1: Azure VM スケール セットの自動スケーリングを構成する
 
-1. Azure portal で、「**az30301c-labRG**」 リソース グループ ブレードに移動し、リソースのリストで、「**az30301c-vmss**」 仮想マシン スケール セット エントリを選択し、「**az30301c-vmss**」 ブレードで、「**スケーリング**」 を選択します。 
+1. Azure portal で、「**az30305c-labRG**」 リソース グループ ブレードに移動し、リソースのリストで、「**az30305c-vmss**」 仮想マシン スケール セット エントリを選択し、「**az30305c-vmss**」 ブレードで、「**スケーリング**」 を選択します。 
 
-1. 「**az30301c-vmss \| スケーリング**」 ブレードで、「**カスタム自動スケーリング**」 オプションを選択します。
+1. 「**az30305c-vmss \| スケーリング**」 ブレードで、「**カスタム自動スケーリング**」 オプションを選択します。
 
 1. 「**カスタム自動スケーリング**」 セクションで、次の設定を指定します (他は既定値のままにします)。
 
@@ -609,7 +609,7 @@ Windows サーバー管理者の認証資格情報
 
     > **注**: ラボの進行上、これらの値を厳密に選択し、できるだけ早くスケーリングをトリガーさせます。Azure VM スケール セットのスケーリングに関するガイダンスについては、 [Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview) を参照してください。 
 
-1. **az30301c-vmss** \| に戻る**スケーリング** ブレードに戻り、**ルールを追加**を選択します。
+1. **az30305c-vmss** \| に戻る**スケーリング** ブレードに戻り、**ルールを追加**を選択します。
 
 1. 「**スケール ルール**」 ブレードで、次の設定を指定し、「**追加**」を選択します (他は既定値のままにします)。
 
@@ -629,7 +629,7 @@ Windows サーバー管理者の認証資格情報
     | インスタンス数:  | **1** |
     | クールダウン (分 | **5** |
 
-1. **az30301c-vmss | スケーリング** ブレード、「**保存**」 を選択します。
+1. **az30305c-vmss | スケーリング** ブレード、「**保存**」 を選択します。
 
 
 #### タスク 2: Azure VM スケール セットの自動スケーリングをテストする
@@ -641,29 +641,29 @@ Windows サーバー管理者の認証資格情報
    ```Bash
    for (( ; ; )); do curl -s <lb_IP_address>?[1-10]; done
    ```
-1. Azure portal の **az30301c-vmss** ブレードで、**CPU (平均)** チャートを確認し、Application Gateway の CPU 使用率が十分に増加して、スケール アウトをトリガーできることを確認します。
+1. Azure portal の **az30305c-vmss** ブレードで、**CPU (平均)** チャートを確認し、Application Gateway の CPU 使用率が十分に増加して、スケール アウトをトリガーできることを確認します。
 
     > **注**: 数分待つ必要があるかもしれません。
 
-1. **az30301c-vmss** ブレードで、**インスタンス** エントリを選択し、インスタンスの数が増加していることを確認します。
+1. **az30305c-vmss** ブレードで、**インスタンス** エントリを選択し、インスタンスの数が増加していることを確認します。
 
-    > **注**: 場合によっては、「**az30301c-vmss**」 \| を更新する必要があります「**インスタンス**」 ブレードを更新する必要があります。
+    > **注**: 場合によっては、「**az30305c-vmss**」 \| を更新する必要があります「**インスタンス**」 ブレードを更新する必要があります。
 
     > **注**: インスタンスの数が (1 ではなく) 2 増加するのを確認する場合があります。これは、実行中のインスタンスの最終的な数が 3 である限り予想されることです。 
 
 1. Azure portal で、**Cloud Shell** ウィンドウを閉じます。 
 
-1. Azure portal の **az30301c-vmss** ブレードで、**CPU (平均)** チャートを確認し、Application Gateway の CPU 使用率が十分に低下して、スケール インをトリガーできることを確認します。 
+1. Azure portal の **az30305c-vmss** ブレードで、**CPU (平均)** チャートを確認し、Application Gateway の CPU 使用率が十分に低下して、スケール インをトリガーできることを確認します。 
 
     > **注**: 数分待つ必要があるかもしれません。
 
-1. **az30301c-vmss** ブレードで、**インスタンス** エントリを選択し、インスタンスの数が 2 に減少したことを確認します。
+1. **az30305c-vmss** ブレードで、**インスタンス** エントリを選択し、インスタンスの数が 2 に減少したことを確認します。
 
-    > **注**: 場合によっては、「**az30301c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
+    > **注**: 場合によっては、「**az30305c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
 
-1. **az30301c-vmss** ブレードで、「**スケーリング**」 を選択します。 
+1. **az30305c-vmss** ブレードで、「**スケーリング**」 を選択します。 
 
-1. 「**az30301c-vmss**」 \| 「**スケーリング**」 ブレード、「**手動スケール**」 オプションを選択し、「**保存**」 を選択します。
+1. 「**az30305c-vmss**」 \| 「**スケーリング**」 ブレード、「**手動スケール**」 オプションを選択し、「**保存**」 を選択します。
 
     > **注**: これにより、次の演習中に不要な自動スケーリングが行われなくなります。 
 
@@ -679,20 +679,20 @@ Windows サーバー管理者の認証資格情報
 
 #### タスク 1: Azure 仮想マシン スケール セット インスタンスのコンピューティング リソースをスケーリングします。
 
-1. Azure portal の 「**az30301c-vmss**」 ブレードで、「**サイズ**」 を選択します。
+1. Azure portal の 「**az30305c-vmss**」 ブレードで、「**サイズ**」 を選択します。
 
 1. 使用可能なサイズのリストで、現在構成されていない使用可能なサイズを選択し、「**サイズ変更**」 を選択します。
 
-1. 「**az30301c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30301c-vmss \| インスタンス**」 ブレードで、既存のインスタンスを目的のサイズの新しいインスタンスに置き換えるプロセスを監視します。
+1. 「**az30305c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30305c-vmss \| インスタンス**」 ブレードで、既存のインスタンスを目的のサイズの新しいインスタンスに置き換えるプロセスを監視します。
 
-    > **注**: 場合によっては、「**az30301c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
+    > **注**: 場合によっては、「**az30305c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
 
 1. インスタンスが更新されて実行されるまで待機します。
 
 
 #### タスク 2: Azure 仮想マシン スケール セット インスタンスのストレージ リソースをスケーリングします。
 
-1. 「**az30301c-vmss**」 ブレードで、「**ディスク**」 を選択し、「**+ データ ディスクの追加**」 を選択して、次の設定で新しいマネージド ディスクを接続し (他は既定値のままにします)、「**保存**」 を選択します。
+1. 「**az30305c-vmss**」 ブレードで、「**ディスク**」 を選択し、「**+ データ ディスクの追加**」 を選択して、次の設定で新しいマネージド ディスクを接続し (他は既定値のままにします)、「**保存**」 を選択します。
 
     | 設定 | 値 | 
     | --- | --- |
@@ -700,15 +700,15 @@ Windows サーバー管理者の認証資格情報
     | サイズ | **32** |
     | ストレージ アカウント タイプ | **標準 HDD** |
 
-1. 「**az30301c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30301c-vmss**」 \| 「**インスタンス**」 ブレードで、既存のインスタンスを更新するプロセスを監視します。
+1. 「**az30305c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30305c-vmss**」 \| 「**インスタンス**」 ブレードで、既存のインスタンスを更新するプロセスを監視します。
 
     > **注**: 前の手順で接続されたディスクは未フォーマット ディスクです。使用する前に、パーティションを作成してフォーマットし、マウントする必要があります。これを行うには、カスタム スクリプト拡張機能を介して PowerShell スクリプトを Azure VM スケール セット インスタンスにデプロイします。ただし、最初に、それを削除する必要があります。
 
-1. 「**az30301c-vmss**」 ブレードで、「**拡張機能**」 を選択し、「**az30301c-vmss \| 拡張機能**」 で 「**customScriptExtension**」 エントリを選択し、「**拡張機能**」 ブレードで 「**アンインストール**」 を選択します。
+1. 「**az30305c-vmss**」 ブレードで、「**拡張機能**」 を選択し、「**az30305c-vmss \| 拡張機能**」 で 「**customScriptExtension**」 エントリを選択し、「**拡張機能**」 ブレードで 「**アンインストール**」 を選択します。
 
     > **注**: アンインストールが完了するまで待機します。
 
-1. Azure portal で、「**az30301c-labRG**」 リソース グループ ブレードに移動し、リソースのリストでストレージ アカウント リソースを選択します。 
+1. Azure portal で、「**az30305c-labRG**」 リソース グループ ブレードに移動し、リソースのリストでストレージ アカウント リソースを選択します。 
 
 1. ストレージ アカウント ブレードで、「**Containers**」 を選択し、「**+ コンテナー**」 を選択します。 
 
@@ -723,23 +723,23 @@ Windows サーバー管理者の認証資格情報
 
 1. 「**スクリプト**」 ブレードで、「**アップロード**」 を選択します。
 
-1. 「**BLOB のアップロード**」 ブレードでフォルダー アイコンを選択し、「**開く**」 ダイアログ ボックスで **\\\\AZ303\\AllFiles\\Labs\\01** フォルダーに移動して、「**az30301e-configure_VMSS_with_data_disk.ps1**」 を選択します。「**開く**」 を選択し、「**BLOB のアップロード**」 ブレードに戻り、「**アップロード**」 を選択します。 
+1. 「**BLOB のアップロード**」 ブレードでフォルダー アイコンを選択し、「**開く**」 ダイアログ ボックスで **\\\\AZ303\\AllFiles\\Labs\\05** フォルダーに移動して、「**az30305e-configure_VMSS_with_data_disk.ps1**」 を選択します。「**開く**」 を選択し、「**BLOB のアップロード**」 ブレードに戻り、「**アップロード**」 を選択します。 
 
-1. Azure portal で、「**az30301c-vmss**」 仮想マシン スケール セット ブレードに戻ります。 
+1. Azure portal で、「**az30305c-vmss**」 仮想マシン スケール セット ブレードに戻ります。 
 
-1. 「**az30301c-vmss**」 ブレードで、「**拡張機能**」 を選択し、「**az30301c-vmss \| 拡張機能**」 ブレードで 、「**+ 追加**」 を選択し、「**拡張機能**」 ブレードで 「**customScriptExtension**」 エントリを選択します。
+1. 「**az30305c-vmss**」 ブレードで、「**拡張機能**」 を選択し、「**az30305c-vmss \| 拡張機能**」 ブレードで 、「**+ 追加**」 を選択し、「**拡張機能**」 ブレードで 「**customScriptExtension**」 エントリを選択します。
 
 1. 「**新しいリソース**」 ブレードで、「**カスタム スクリプト拡張機能**」 を選択してから、「**作成**」 を選択します。
 
 1. 「**拡張機能のインストール**」 ブレードから、「**参照**」 を選択します。 
 
-1. 「**ストレージ アカウント**」 ブレードで、**az30301e-configure_VMSS_with_data_disk.ps1** スクリプトをアップロードしたストレージ アカウントの名前を選択し、「**コンテナ**」 ブレードで 「**スクリプト**」 を選択し、「**スクリプト**」 ブレードで 「**az30301e-configure_VMSS_with_data_disk.ps1**」 を選択してから、「**選択**」 を選択します。 
+1. 「**ストレージ アカウント**」 ブレードで、**az30305e-configure_VMSS_with_data_disk.ps1** スクリプトをアップロードしたストレージ アカウントの名前を選択し、「**コンテナ**」 ブレードで 「**スクリプト**」 を選択し、「**スクリプト**」 ブレードで 「**az30305e-configure_VMSS_with_data_disk.ps1**」 を選択してから、「**選択**」 を選択します。 
 
 1. 「**拡張機能のインストール**」 ブレードに戻り、「**OK**」 を選択します。
 
-1. 「**az30301c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30301c-vmss**」 で | 「**インスタンス**」 ブレードで、既存のインスタンスを更新するプロセスを監視します。
+1. 「**az30305c-vmss**」 ブレードで 「**インスタンス**」 エントリを選択し、「**az30305c-vmss**」 で | 「**インスタンス**」 ブレードで、既存のインスタンスを更新するプロセスを監視します。
 
-    > **注**: 場合によっては、「**az30301c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
+    > **注**: 場合によっては、「**az30305c-vmss**」 \| を更新する必要があります 「**インスタンス**」 ブレードを更新する必要があります。
 
 
 #### タスク 3: 演習でデプロイされた Azure リソースを削除する
@@ -747,7 +747,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次のコマンドを実行して、この演習で作成したリソース グループを一覧表示します。
 
    ```Bash
-   az group list --query "[?starts_with(name,'az30301c-')]".name --output tsv
+   az group list --query "[?starts_with(name,'az30305c-')]".name --output tsv
    ```
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
@@ -755,7 +755,7 @@ Windows サーバー管理者の認証資格情報
 1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
 
    ```Bash
-   az group list --query "[?starts_with(name,'az30301c-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+   az group list --query "[?starts_with(name,'az30305c-')]".name --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
    ```
    
 1. 「Cloud Shell」 ペインを閉じます。
