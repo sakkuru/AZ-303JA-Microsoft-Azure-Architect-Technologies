@@ -127,7 +127,7 @@ Azure では、このパターンはさまざまな方法により、さまざ�
 1. Cloud Shell ペインから、次を実行して、Azure Storage Blob の作成に対応するイベントを処理する Azure Function を作成します。
 
    ```sh
-   export FUNCTION_NAME="az30314f${PREFIX}"
+   export FUNCTION_NAME="az30309f${PREFIX}"
 
    az functionapp create --name "${FUNCTION_NAME}" --resource-group "${RESOURCE_GROUP_NAME}" --app-insights "$APPLICATION_INSIGHTS_NAME" --app-insights-key "$APPINSIGHTS_KEY" --storage-account "${STORAGE_ACCOUNT_NAME}" --consumption-plan-location "${LOCATION}" --runtime "dotnet" --functions-version 2
    ```
