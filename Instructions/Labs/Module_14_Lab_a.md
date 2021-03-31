@@ -62,7 +62,7 @@ None
 
 1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、**「Bash」** を選択します。 
 
-    > ** 注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
+    >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
 
 1. Cloud Shell ペインから次のコマンドを実行して、**az30314a1** という名前の新しいディレクトリを作成し、それを現在のディレクトリとして設定します。
 
@@ -90,13 +90,13 @@ None
    ```
 1. デプロイ ユーザーが正常に作成されたことを確認します。競合を示すエラー メッセージが表示された場合は、前の手順を繰り返します。
 
-    > ** 注**: ユーザー名の値と対応するパスワードを必ず記録してください。
+    >**注**: ユーザー名の値と対応するパスワードを必ず記録してください。
 
 1. Cloud Shell ペインから、次のコマンドを実行して、App Service Web アプリをホストするリソース グループを作成します (`<location>` プレースホルダーを、サブスクリプションで使用可能で、ラボ コンピューターの場所に最も近い Azure リージョンの名前に置き換えます)。
 
    ```sh
    LOCATION='<location>'
-   RGNAME = 'az30314a-labRG'
+   RGNAME='az30314a-labRG'
    az group create --location $LOCATION --resource-group $RGNAME
    ```
 
@@ -114,7 +114,7 @@ None
    az webapp create --name $WEBAPPNAME --resource-group $RGNAME --plan $SPNAME --deployment-local-git
    ```
 
-    > ** 注**: デプロイが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、新しく作成された App Service Web アプリの公開 URL を取得します。
 
@@ -134,7 +134,7 @@ None
    git push azure master
    ```
 
-    > ** 注**: デプロイが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
 1. Cloud Shell ペインから、次のコマンドを実行して、新しくデプロイされた App Service Web アプリの FQDN を識別します。 
 
@@ -220,9 +220,9 @@ None
 1. Cloud Shell ペインから次のコマンドを実行して、App Service Web アプリの新しく作成されたステージング スロットの公開 URL を取得します。
 
    ```sh
-   RGNAME = 'az30314a-labRG'
+   RGNAME='az30314a-labRG'
    WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30314')]".name --output tsv)
-   SLOTNAME = 'staging'
+   SLOTNAME='staging'
    URLSTAGING=$(az webapp deployment list-publishing-credentials --name $WEBAPPNAME --slot $SLOTNAME --resource-group $RGNAME --query scmUri --output tsv)
    ```
 
@@ -238,7 +238,7 @@ None
    git push azure-staging master
    ```
 
-    > ** 注**: デプロイが完了するのを待ちます。 
+    >**注**: デプロイが完了するのを待ちます。 
 
 1. 「Cloud Shell」 ペインを閉じます。
 
@@ -264,7 +264,7 @@ None
 
 1. Azure portal で、App Service Web アプリの展開スロットを表示しているブレードに戻ります。
 
-1. Azure portal の App Service Web アプリのデプロイ スロットを表示しているブレードで、ステージング スロットを表示している行の「**トラフィック ％**」列の値を 50 に設定します。これにより、本番スロットを表す行の**トラフィック ％**の値が自動的に 50 に設定されます。
+1. Azure portal の App Service Web アプリのデプロイ スロットを表示しているブレードで、ステージング スロットを表示している行の 「**トラフィック ％**」 列の値を 50 に設定します。これにより、本番スロットを表す行の**トラフィック ％**の値が自動的に 50 に設定されます。
 
 1. App Service Web アプリの展開スロットを表示しているブレードで、**保存**を選択します。 
 
@@ -273,7 +273,7 @@ None
 1. Cloud Shell ペインから次のコマンドを実行して、目標 Web アプリの名前とその配布グループを表す変数が設定されていることを確認します。
 
    ```sh
-   RGNAME = 'az30314a-labRG'
+   RGNAME='az30314a-labRG'
    WEBAPPNAME=$(az webapp list --resource-group $RGNAME --query "[?starts_with(name,'az30314')]".name --output tsv)
    ```
 
@@ -283,7 +283,7 @@ None
    curl -H 'Cache-Control: no-cache' https://$WEBAPPNAME.azurewebsites.net --stderr - | grep ' <h1> Azure App Service - サンプルの静的 HTML サイト '
    ```
 
-    > ** 注**: トラフィック分布は完全に確定的ではありませんが、各目標サイトからいくつかの応答が表示されるはずです。
+    >**注**: トラフィック分布は完全に確定的ではありませんが、各目標サイトからいくつかの応答が表示されるはずです。
 
 #### タスク 4: ラボにデプロイした Azure リソースを削除する
 

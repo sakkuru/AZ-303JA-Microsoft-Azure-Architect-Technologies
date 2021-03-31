@@ -68,12 +68,12 @@ None
 
 1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、**「Bash」** を選択します。
 
-    > ** 注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。
+    >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。
 
 1. Cloud Shell ペインから次を実行して、このエクササイズで指定するリソースの名前のプレフィックスとして使用される擬似ランダムな文字列を生成します。
 
    ```sh
-   export PREFIX=$(echo `openssl rand -base64 5 | cut -c1-7 | tr '[:upper:]''[:lower:]' | tr -cd '[[:alnum:]]._-'`)
+   export PREFIX=$(echo `openssl rand -base64 5 | cut -c1-7 | tr '[:upper:]' '[:lower:]' | tr -cd '[[:alnum:]]._-'`)
    ```
 
 1. Cloud Shell ペインから、次の操作を実行して、このラボでリソースをプロビジョニングする Azure リージョンを指定します (`<Azure region>`プレースホルダーを、サブスクリプションで使用できる、ラボの場所に最も近い Azure リージョンの名前に置き換えます)。
@@ -230,7 +230,7 @@ None
 1. Cloud Shell ペインから次を実行して、このエクササイズで指定するリソースの名前のプレフィックスとして使用される擬似ランダムな文字列を生成します。
 
    ```sh
-   export PREFIX=$(echo `openssl rand -base64 5 | cut -c1-7 | tr '[:upper:]''[:lower:]' | tr -cd '[[:alnum:]]._-'`)
+   export PREFIX=$(echo `openssl rand -base64 5 | cut -c1-7 | tr '[:upper:]' '[:lower:]' | tr -cd '[[:alnum:]]._-'`)
    ```
 
 1. Cloud Shell ペインから次を実行して、ターゲットリソースグループとその既存のリソースをホストしている Azure リージョンを特定します。
