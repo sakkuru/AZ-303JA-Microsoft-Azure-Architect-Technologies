@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '14A: ステージング スロットを使用した Azure App Service Web アプリの実装'
     module: 'モジュール 14: アプリケーション インフラストラクチャの実装'
@@ -192,13 +192,13 @@ None
 1. 「Cloud Shell」 ウィンドウのコード エディターで、次の行を置き換えます。
 
    ```html
-   <h1>Azure App Service - サンプルの静的 HTML サイト</h1>
+   <h1>Azure App Service - Sample Static HTML Site</h1>
    ```
 
    置き換えると、次のようになります。
 
    ```html
-   <h1>Azure App Service - サンプルの静的 HTML サイト v1.0.1</h1>
+   <h1>Azure App Service - Sample Static HTML Site v1.0.1</h1>
    ```
 
 1. 変更を保存し、エディター ウィンドウを閉じます。 
@@ -206,7 +206,7 @@ None
 1. Cloud Shell ペインから次のコマンドを実行して、必要なグローバル git 構成設定を指定します。
 
    ```sh
-   git config --global user.email "user@az30305.com"
+   git config --global user.email "user@az30314.com"
    git config --global user.name "user az30314"
    ```
 
@@ -280,7 +280,7 @@ None
 1. Cloud Shell ペインから次を数回実行して、2 つのスロット間のトラフィック分布を特定します。
 
    ```sh
-   curl -H 'Cache-Control: no-cache' https://$WEBAPPNAME.azurewebsites.net --stderr - | grep ' <h1> Azure App Service - サンプルの静的 HTML サイト '
+   curl -H 'Cache-Control: no-cache' https://$WEBAPPNAME.azurewebsites.net --stderr - | grep '<h1>Azure App Service - Sample Static HTML Site'
    ```
 
     >**注**: トラフィック分布は完全に確定的ではありませんが、各目標サイトからいくつかの応答が表示されるはずです。

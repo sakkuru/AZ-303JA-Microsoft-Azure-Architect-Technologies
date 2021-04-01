@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '6: Azure Storage File および Blob Services の実装と構成'
     module: 'モジュール 6: ストレージ アカウントの実装'
@@ -93,7 +93,7 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306rga.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 06 \\ azuredeploy30306rga.parameters.json** をアップロードします 。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFilesLabs\\06\\azuredeploy30306rga.parameters.json** をアップロードします 。
 
 1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
 
@@ -258,15 +258,15 @@ Windows Server 管理者の資格情報
    ```powershell
    New-Item -Path './az30306ablob.html'
 
-   Set-Content './az30306ablob.html' '<h3>SAS 経由の az30306ablob からこんにちは</h3> '
+   Set-Content './az30306ablob.html' '<h3>Hello from az30306ablob via SAS</h3>'
    ```
 
 1. Cloud Shell ペインから次のコマンドを実行し、新しく作成したファイルを Blob として、この演習の前半で作成した Azure Storage アカウントの container 1 にアップロードします（ このタスクの前半でクリップボードにコピーした Shared Access Signature の "<sas_token> " というプレースホルダ を差し替えます)。
 
    ```powershell
-   $storageAccount = (Get-AzStorageAccount -ResourceGroupName az30306a-LabRG)[0]
+   $storageAccountName = (Get-AzStorageAccount -ResourceGroupName 'az30306a-labRG')[0].StorageAccountName
 
-   azcopy cp './az30306ablob.html' "https：//$storageAccountName.blob.core.windows.net/container1/az30306ablob.html <sas_token>"
+   azcopy cp './az30306ablob.html' "https://$storageAccountName.blob.core.windows.net/container1/az30306ablob.html<sas_token>"
    ```
 
 1. AzCopy によって生成された出力を確認し、ジョブが正常に完了したことを確認します。

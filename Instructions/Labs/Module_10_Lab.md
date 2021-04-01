@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '10: Azure ロールベースのアクセス制御 (RBAC) を管理する'
     module: 'モジュール 10: Azure のガバナンスの導入と管理'
@@ -86,7 +86,7 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\10\\azuredeploy30310rga.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 10 \\ azuredeploy30310rga.parameters.json** をアップロードします 。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFilesLabs\\10\\azuredeploy30310rga.parameters.json** をアップロードします 。
 
 1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
 
@@ -173,7 +173,7 @@ Windows Server 管理者の資格情報
       "Name": "Virtual Machine Operator (Custom)",
       "Id": null,
       "IsCustom": true,
-      "Description": "Azure VM の起動/再起動を許可する"、
+      "Description": "Allows to start/restart Azure VMs",
       "Actions": [
           "Microsoft.Compute/*/read",
           "Microsoft.Compute/virtualMachines/restart/action",
