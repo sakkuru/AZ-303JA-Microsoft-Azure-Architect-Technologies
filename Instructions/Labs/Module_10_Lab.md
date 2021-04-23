@@ -1,10 +1,10 @@
----
+﻿---
 lab:
     title: '10: Azure ロールベースのアクセス制御 (RBAC) を管理する'
     module: 'モジュール 10: Azure のガバナンスの導入と管理'
 ---
 
-# ラボ: Azure ロールベースのアクセス制御 (RBAC) を管理する
+# ラボ: Azure ロール ベースのアクセス制御の管理
 # 受講生用ラボ マニュアル
 
 ## ラボ シナリオ
@@ -68,7 +68,7 @@ Windows Server 管理者の資格情報
 
     >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。 
 
-1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル  **\\\\\AZ303\\AllFiles\Labs\\10\\azuredeploy30310suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
+1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル **\\\\\AZ303\\AllFiles\Labs\\10\\azuredeploy30310suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
 1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能で、ラボのコンピューターの場所に最も近い Azure リージョンの名前に置き換えます ）:
 
@@ -82,11 +82,11 @@ Windows Server 管理者の資格情報
      -rgName 'az30310a-labRG'
    ```
 
-      > **注記**: Azure VM をプロビジョニングできる Azure リージョンを識別するには、[**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/) を参照してください。
+      >**注記**: Azure VM をプロビジョニングできる Azure リージョンを識別するには、[**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/) を参照してください。
 
 1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\10\\azuredeploy30310rga.json** をアップロードします。
 
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFilesLabs\\10\\azuredeploy30310rga.parameters.json** をアップロードします 。
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 10 \\ azuredeploy30310rga.parameters.json** をアップロードします 。
 
 1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
 
@@ -236,7 +236,7 @@ Windows Server 管理者の資格情報
 
 1. **「az30310a-labRG - Access Control (IAM)」** ブレードで、**「+ 追加」** をクリックして、**「ロールの割り当てを追加」** オプションを選択します。
 
-1. **「ロールの割り当てを追加」** ブレード、次の設定を指定し（他の設定は既存の値のままにします）、 **「保存」** 選択します:
+1. **「ロールの割り当てを追加」** ブレード、次の設定を指定し（他の設定は既存の値のままにします）、**「保存」**選択します:
 
     | 設定 | 値 | 
     | --- | --- |
@@ -247,13 +247,13 @@ Windows Server 管理者の資格情報
 
 #### タスク 2: RBAC ロール割り当てのテスト
 
-1. ラボ コンピューターから新しいプライベート Web ブラウザー セッションを開始し、[Azure portal](https://portal.azure.com) に移動し、**「az30310aaduser1」** ユーザー アカウントと **「Pa55w.rd1234」** パスワードを使用してログインします。
+1. ラボ コンピューターから新しいプライベート Web ブラウザー セッションを開始し、[Azure portal](https://portal.azure.com) に移動し、**「az30310aaduser1」**ユーザー アカウントと**「Pa55w.rd1234」**パスワードを使用してログインします。
 
-    > **注**: このラボの前半で記録した **「az30310aaduser1 」** ユーザー アカウントのユーザー プリンシパル名を必ず使用してください。
+    > **注**: このラボの前半で記録した**「az30310aaduser1 」**ユーザー アカウントのユーザー プリンシパル名を必ず使用してください。
 
 1. Azure portal で、「**リソース グループ**」 ブレードに移動します。リソース グループは表示されないことに注意してください。 
 
-1. Azure portal　に、**すべてのリソース**ブレードに移動します。**az30310a-vm0**とそのマネージド ディスクのみが表示されることに注意してください。
+1. Azure portal で、**すべてのリソース**ブレードに移動します。**az30310a-vm0**とそのマネージド ディスクのみが表示されることに注意してください。
 
 1. Azure portal で、**「az30310a-vm0」** ブレードに移動します。仮想マシンを停止してみてください。通知領域のエラー メッセージを確認し、現在のユーザーが実行を許可されていないため、この操作が失敗したことに留意してください。
 
@@ -274,10 +274,17 @@ Windows Server 管理者の資格情報
 
     > **注**: このラボで作成したリソース グループのみが出力に含まれていることを確認します。このグループは、このタスクで削除されます。
 
-1. 「Cloud Shell」 ウィンドウから次を実行して、このラボで作成したリソース グループを削除します
+1. Cloud Shell ペインから、以下を実行して、このラボで作成したリソースグループを削除します。
 
    ```powershell
    Get-AzResourceGroup -Name 'az30310*' | Remove-AzResourceGroup -Force -AsJob
+   ```
+
+1. Cloud Shell ペインから、以下を実行して、このラボで以前にアップロードしたラボ ファイルを削除します。
+
+   ```powershell
+   Get-ChildItem -Path . -Filter 'az30310*.json' | Remove-Item -Force
+   Get-ChildItem -Path . -Filter 'roledefinition30310.json' | Remove-Item -Force
    ```
 
 1. 「Cloud Shell」 ペインを閉じます。
@@ -288,4 +295,4 @@ Windows Server 管理者の資格情報
 
 1. Azure portal で、Azure サブスクリプションのプロパティを表示しているブレードに移動し、「**アクセス制御 (IAM)**」エントリを選択してから、「**ロール**」を選択します。
 
-1. ロールのリストで、「**仮想マシンオペレーター (カスタム)**」 エントリを選択し、「**削除**」 を選択し、確認を求められたら、「**はい**」を選択します。
+1. ロールのリストで、「**仮想マシンオペレーター (カスタム)**」エントリを選択し、「**削除」**を選択し、確認を求められたら、「**はい**」を選択します。

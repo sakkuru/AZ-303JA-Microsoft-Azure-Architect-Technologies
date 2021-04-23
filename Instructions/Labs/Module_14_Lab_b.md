@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '14B: メッセージベースの統合アーキテクチャの構成'
     module: 'モジュール 14: アプリケーション インフラストラクチャの実装'
@@ -68,7 +68,7 @@ None
 
 1. **Bash** または **PowerShell** のいずれかを選択するためのプロンプトが表示されたら、**「Bash」** を選択します。
 
-    >**注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。
+    > **注**: **Cloud Shell** を初めて起動し、「**ストレージがマウントされていません**」というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、「**ストレージの作成**」を選択します。
 
 1. Cloud Shell ペインから次を実行して、このエクササイズで指定するリソースの名前のプレフィックスとして使用される擬似ランダムな文字列を生成します。
 
@@ -127,7 +127,7 @@ None
 1. Cloud Shell ペインから、次を実行して、Azure Storage Blob の作成に対応するイベントを処理する Azure Function を作成します。
 
    ```sh
-   export FUNCTION_NAME="az30309f${PREFIX}"
+   export FUNCTION_NAME="az30314f${PREFIX}"
 
    az functionapp create --name "${FUNCTION_NAME}" --resource-group "${RESOURCE_GROUP_NAME}" --app-insights "$APPLICATION_INSIGHTS_NAME" --app-insights-key "$APPINSIGHTS_KEY" --storage-account "${STORAGE_ACCOUNT_NAME}" --consumption-plan-location "${LOCATION}" --runtime "dotnet" --functions-version 2
    ```
@@ -144,9 +144,9 @@ None
 
 1. Azure 関数アプリ ブレードで、「**Functions**」 をクリックし、「**+ 追加**」 をクリックします。
 
-1. **新しい関数**ブレードで、「**Azure Blob ストレージ トリガー**」 テンプレートを選択します。
+1. **関数の追加**ブレードで、「**Azure Blob ストレージ トリガー**」 テンプレートを選択します。
 
-1. **新しい関数**ブレードで、次を指定し、「**関数の作成**」 を選択して Azure 関数内に新し関数 を作成します。
+1. **関数の追加**ブレードで、次を指定し、「**追加**」 を選択して Azure 関数内に新し関数 を作成します。
 
     | 設定 | 値 |
     | --- | --- |
