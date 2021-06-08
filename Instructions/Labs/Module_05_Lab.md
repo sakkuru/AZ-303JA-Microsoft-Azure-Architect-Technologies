@@ -136,13 +136,13 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rga.parameters.json** をアップロードします。
 
-1. Cloud Shell ペインから次のコマンドを実行して、Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Basic を同じ可用性セットにデプロイします。
+1. Cloud Shell ペインから次のコマンドを実行して、Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Basic を同じ可用性セットにデプロイします。(`<vm_Size>`プレースホルダーを目的の Azure VMのサイズに置き換えてください。例: `Standard_D2s_v3`)
 
    ```Bash
-   az deployment group create \
-   --resource-group az30305a-labRG \
-   --template-file azuredeploy30305rga.json \
-   --parameters @azuredeploy30305rga.parameters.json
+    az deployment group create \
+    --resource-group az30305a-labRG \
+    --template-file azuredeploy30305rga.json \
+    --parameters @azuredeploy30305rga.parameters.json vmSize=<vm_Size>
    ```
 
     > **注**: 次のタスクに進む前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
@@ -172,7 +172,7 @@ Windows Server 管理者の資格情報
     | --- | --- |
     | サブスクリプション | このラボで使用する Azure サブスクリプションの名前 |
     | リソース グループ | **az30305a-labRG** |
-    | 仮想マシン | **az30305aが-VM0** |
+    | 仮想マシン | **az30305a-VM0** |
     | ネットワーク インターフェイス | **az30305a-nic0** |
 
 1. 関連するネットワーク セキュリティ グループと、RDP および HTTP を介した受信接続を許可する 2 つのカスタム ルールを含む有効なセキュリティ ルールを確認します。  
@@ -192,7 +192,7 @@ Windows Server 管理者の資格情報
     | サブスクリプション | このラボで使用する Azure サブスクリプションの名前 |
     | リソース グループ | **az30305a-labRG** |
     | ソース タイプ | **仮想マシン** |
-    | 仮想マシン | **az30305aが-VM0** |
+    | 仮想マシン | **az30305a-VM0** |
     | 宛先 | **仮想マシンを選択する** |
     | リソース グループ | **az30305a-labRG** |
     | 仮想マシン | **az30305a-vm1** |
@@ -307,13 +307,13 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgb.parameters.json** をアップロードします。
 
-1. Cloud Shell ペインから次のコマンドを実行して、2 つの Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Standard をデプロイします。
+1. Cloud Shell ペインから次のコマンドを実行して、2 つの Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されるバックエンド プールを備えた Azure Load Balancer Standard をデプロイします。(`<vm_Size>`プレースホルダーを目的の Azure VMのサイズに置き換えてください。例: `Standard_D2s_v3`)
 
    ```Bash
-   az deployment group create \
-   --resource-group az30305b-labRG \
-   --template-file azuredeploy30305rgb.json \
-   --parameters @azuredeploy30305rgb.parameters.json
+    az deployment group create \
+    --resource-group az30305b-labRG \
+    --template-file azuredeploy30305rgb.json \
+    --parameters @azuredeploy30305rgb.parameters.json vmSize=<vm_Size>
    ```
 
     > **注**: 次のタスクに進む前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
@@ -514,10 +514,10 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.parameters.json** をアップロードします。
 
-1. Cloud Shell ペインから次のコマンドを実行して、Azure Application Gateway をデプロイします。そのバックエンド プールは、さまざまな Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されています。
+1. Cloud Shell ペインから次のコマンドを実行して、Azure Application Gateway をデプロイします。そのバックエンド プールは、さまざまな Availability Zones にわたって Windows Server 2019 Datacenter Core をホストする Azure VM のペアで構成されています。(`<vm_Size>`プレースホルダーを目的の Azure VMのサイズに置き換えてください。例: `Standard_D2s_v3`)
 
    ```
-   az deployment group create --resource-group az30305c-labRG --template-file azuredeploy30305rgc.json --parameters @azuredeploy30305rgc.parameters.json
+   az deployment group create --resource-group az30305c-labRG --template-file azuredeploy30305rgc.json --parameters @azuredeploy30305rgc.parameters.json --vmSize <vm_Size>
    ```
 
     > **注**: 次のタスクに進む前に、デプロイが完了するまで待機します。これにはおよそ 10 分かかります。
