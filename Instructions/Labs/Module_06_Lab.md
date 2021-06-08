@@ -74,12 +74,29 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル **\\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
-1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能な Azure リージョンの名前に置き換えます。また、`<vm_Size>`プレースホルダーを、 `Standard_D2s_v3`など、Azure VM のサイズに置き換えます）
+1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能な Azure リージョンの名前に置き換えます。）
 
    ```powershell
    $location = '<Azure region>'
    ```
    
+   ```powershell
+   New-AzSubscriptionDeployment `
+     -Location $location `
+     -Name az30306subaDeployment `
+     -TemplateFile $HOME/azuredeploy30306suba.json `
+     -rgLocation $location `
+     -rgName 'az30306a-labRG'
+   ```
+   
+      > **注記**: Azure VM をプロビジョニングできる Azure リージョンを識別するには、[**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/) を参照してください。
+
+1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306rga.json** をアップロードします。
+
+1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 06 \\ azuredeploy30306rga.parameters.json** をアップロードします 。
+
+1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします(`<vm_Size>`プレースホルダーを、 `Standard_D2s_v3`など、Azure VM のサイズに置き換えます):
+
    ```powershell
    New-AzResourceGroupDeployment `
      -Name az30306rgaDeployment `
@@ -87,23 +104,6 @@ Windows Server 管理者の資格情報
      -TemplateFile $HOME/azuredeploy30306rga.json `
      -TemplateParameterFile $HOME/azuredeploy30306rga.parameters.json `
      -vmSize=<vm_Size> `
-     -AsJob
-   ```
-
-      > **注記**: Azure VM をプロビジョニングできる Azure リージョンを識別するには、[**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/) を参照してください。
-
-1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306rga.json** をアップロードします。
-
-1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 06 \\ azuredeploy30306rga.parameters.json** をアップロードします 。
-
-1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
-
-   ```powershell
-   New-AzResourceGroupDeployment `
-     -Name az30306rgaDeployment `
-     -ResourceGroupName 'az30306a-labRG' `
-     -TemplateFile $HOME/azuredeploy30306rga.json `
-     -TemplateParameterFile $HOME/azuredeploy30306rga.parameters.json `
      -AsJob
    ```
 
@@ -137,7 +137,7 @@ Windows Server 管理者の資格情報
 
     | 設定 | 値 | 
     | --- | --- |
-    | 定期売買 | このラボで使用する Azure サブスクリプションの名前 |
+    | サブスクリプション | このラボで使用する Azure サブスクリプションの名前 |
     | リソース グループ | 新しいリソース グループ **az30306a-LabRG** の名前 |
     | ストレージ アカウント名 | 文字と数字で構成される、長さ 3 文字から 24 文字までのグローバルに一意な名前 |
     | 場所 | Azure ストレージ アカウントを作成できる Azure リージョンの名前  |
@@ -166,7 +166,7 @@ Windows Server 管理者の資格情報
 
     | 設定 | 値 | 
     | --- | --- |
-    | 「ユーザー名」 | **Student** |
+    | ユーザー名 | **Student** |
     | パスワード | **Pa55w.rd1234** |
 
 1. **az30306a-vm0** へのリモート デスクトップ セッション内にある 「サーバー マネージャー」 ウィンドウで、「**ローカル サーバー**」 を選択し、「**IE 強化されたセキュリティ構成**」 ラベルの横にある 「**オン**」 のリンクを選択し、「**IE 強化されたセキュリティ構成**」 ダイアログ ボックスで、両方の 「**オフ**」 オプションを選択します。
