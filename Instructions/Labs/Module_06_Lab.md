@@ -74,19 +74,20 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインのツールバーで、 **ファイルのアップロード/ダウンロード** アイコンを選択し、ドロップダウン メニューで **アップロード**を選択して、ファイル **\\\\\AZ303\\AllFiles\Labs\\06\\azuredeploy30306suba.json** を Cloud Shell ホーム ディレクトリにアップロードします。
 
-1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能で、ラボのコンピューターの場所に最も近い Azure リージョンの名前に置き換えます ）:
+1. Cloud Shell ペインから次のコマンドを実行してリソースグループを作成します（ `<Azure region>`プレースホルダーを、サブスクリプションでの Azure VM のデプロイに使用可能な Azure リージョンの名前に置き換えます。また、`<vm_Size>`プレースホルダーを、 `Standard_D2s_v3`など、Azure VM のサイズに置き換えます）
 
    ```powershell
    $location = '<Azure region>'
    ```
    
    ```powershell
-   New-AzSubscriptionDeployment `
-     -Location $location `
-     -Name az30306subaDeployment `
-     -TemplateFile $HOME/azuredeploy30306suba.json `
-     -rgLocation $location `
-     -rgName 'az30306a-labRG'
+   New-AzResourceGroupDeployment `
+     -Name az30306rgaDeployment `
+     -ResourceGroupName 'az30306a-labRG' `
+     -TemplateFile $HOME/azuredeploy30306rga.json `
+     -TemplateParameterFile $HOME/azuredeploy30306rga.parameters.json `
+     -vmSize=<vm_Size> `
+     -AsJob
    ```
 
       > **注記**: Azure VM をプロビジョニングできる Azure リージョンを識別するには、[**https://azure.microsoft.com/ja-jp/regions/offers/**](https://azure.microsoft.com/ja-jp/regions/offers/) を参照してください。
