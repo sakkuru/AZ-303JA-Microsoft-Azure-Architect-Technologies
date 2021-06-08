@@ -507,7 +507,10 @@ Windows Server 管理者の資格情報
 1. Cloud Shell ペインから次のコマンドを実行してリソース グループを作成します (`<Azure region>` プレースホルダーを、サブスクリプションで使用可能で、ラボ コンピューターの場所に最も近い Azure リージョンの名前に置き換えます)。
 
    ```Bash
-   az deployment sub create --location '<Azure region>' --template-file azuredeploy30305subc.json --parameters rgName=az30305c-labRG rgLocation='<Azure region>'
+   az deployment sub create \
+   --location $LOCATION \
+   --template-file azuredeploy30305subc.json \
+   --parameters rgName=az30305c-labRG rgLocation=$LOCATION
    ```
 
 1. Cloud Shell ペインから、Azure Resource Manager テンプレート **\\\\AZ303\\AllFiles\\Labs\\05\\azuredeploy30305rgc.json** をアップロードします。
