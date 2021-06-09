@@ -103,7 +103,7 @@ Windows Server 管理者の資格情報
      -ResourceGroupName 'az30306a-labRG' `
      -TemplateFile $HOME/azuredeploy30306rga.json `
      -TemplateParameterFile $HOME/azuredeploy30306rga.parameters.json `
-     -vmSize=<vm_Size> `
+     -vmSize <vm_Size> `
      -AsJob
    ```
 
