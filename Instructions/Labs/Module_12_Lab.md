@@ -19,7 +19,7 @@ Adatum エンタープライス アーキテクチャ チームは、オンプ�
   
 このラボを完了すると、次のことができるようになります。
 
--  Azure Site Recover を構成する
+-  Azure Site Recovery を構成する
 
 -  テスト フェールオーバーを実行する
 
@@ -81,7 +81,7 @@ Windows Server 管理者の資格情報
 
 1. Azure portal で、**Cloud Shell** ウィンドウを閉じます。
 
-1. ラボ コンピューターから別のブラウザー タブを開き、[301-nested-vms-in-virtual-network Azure クイックスタート テンプレート](https://github.com/Azure/azure-quickstart-templates/tree/master/301-nested-vms-in-virtual-network) に移動して、「**Azure にデプロイする**」 を選択します。これにより、ブラウザーは自動的に Azure portal の**入れ子になった VM を持つ Hyper-V ホスト仮想マシン** ブレードにリダイレクトされます。
+1. ラボ コンピューターから別のブラウザー タブを開き、[nested-vms-in-virtual-network Azure QuickStart template](https://github.com/Azure/azure-quickstart-templates/tree/master/demos/nested-vms-in-virtual-network) に移動して、「**Deploy to Azure**」 を選択します。これにより、ブラウザーは自動的に Azure portal の**Hyper-V Host Virtual Machine with nested VMs** ブレードにリダイレクトされます。
 
 1. Azure portal の**入れ子になった VM を持つ Hyper-V ホスト仮想マシン** ブレードで、次の設定を指定します (他の設定は既定値のままにします)。
 
@@ -299,7 +299,6 @@ Windows Server 管理者の資格情報
     | ストレージ アカウント名 | 文字と数字で構成される、長さ 3 文字から 24 文字までのグローバルに一意な名前 |
     | 場所 | このタスクの前半で仮想ネットワークを作成した Azure リージョンの名前 |
     | パフォーマンス | **Standard** |
-    | アカウントの種類 | **StorageV2 (汎用 v2)** |
     | レプリケーション | **ローカル冗長ストレージ (LRS)** |
 
 1. 「**ストレージ アカウントを作成する**」 ブレードの 「**基本**」 タブで、「**Review + create**」 を選択します。
