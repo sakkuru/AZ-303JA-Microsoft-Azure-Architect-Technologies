@@ -88,7 +88,7 @@ Windows Server 管理者の資格情報
 
 1. Cloud Shell ペインから、Azure Resource Manager パラメーター ファイル **\\\\ AZ303 \\ AllFilesLabs \\ 10 \\ azuredeploy30310rga.parameters.json** をアップロードします 。
 
-1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします:
+1. Cloud Shell ペインから次を実行して、このラボで使用する Windows Server 2019 を実行する Azure VM をデプロイします(`<vm_Size>`プレースホルダーを、 `Standard_D2s_v3`など、Azure VM のサイズに置き換えます):
 
    ```powershell
    New-AzResourceGroupDeployment `
@@ -96,6 +96,7 @@ Windows Server 管理者の資格情報
      -ResourceGroupName 'az30310a-labRG' `
      -TemplateFile $HOME/azuredeploy30310rga.json `
      -TemplateParameterFile $HOME/azuredeploy30310rga.parameters.json `
+     -vmSize <vm_Size>
      -AsJob
    ```
 
